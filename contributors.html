@@ -99,9 +99,72 @@
             .serial-number { font-size: 38px; bottom: -5px; }
             .modal-serial { font-size: 80px; bottom: 85px; right: 10px; }
         }
+
+        /* ── Fixed Exit Button ── */
+        #fixed-exit-btn {
+            position: fixed;
+            bottom: 24px;
+            right: 24px;
+            z-index: 9999;
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            background: var(--exit-accent, #3a86ff);
+            border: 2px solid rgba(255,255,255,0.15);
+            box-shadow: 0 4px 20px rgba(0,0,0,0.5);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 18px;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            pointer-events: all;
+        }
+        #fixed-exit-btn:hover {
+            transform: scale(1.1);
+            box-shadow: 0 6px 28px rgba(0,0,0,0.6);
+        }
+        #fixed-exit-btn:active { transform: scale(0.95); }
+        #fixed-exit-btn svg {
+            width: 20px; height: 20px;
+            stroke: white; fill: none;
+            stroke-width: 2.5;
+            stroke-linecap: round; stroke-linejoin: round;
+            pointer-events: none;
+        }
     </style>
 </head>
 <body class="text-slate-300 antialiased min-h-screen pb-10">
+
+<!-- Fixed Exit Button — always visible, never moves -->
+<button id="fixed-exit-btn" onclick="window.parent.closePopup()" title="Close">
+    <svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+</button>
+
+<script>
+/* Receive theme from parent index.html */
+window.addEventListener('message', function(e) {
+    if (!e.data || e.data.type !== 'eduyomi-theme') return;
+    const d = e.data;
+    const btn = document.getElementById('fixed-exit-btn');
+    if (btn && d.accent) {
+        btn.style.background  = d.accent;
+        btn.style.setProperty('--exit-accent', d.accent);
+    }
+    /* Repaint page bg to match parent */
+    if (d.bg) {
+        document.body.style.background = d.bg;
+        /* Tweak gradient to stay subtle over new bg */
+        document.body.style.backgroundImage =
+            'radial-gradient(circle at 100% 0%, rgba(30,58,138,0.08) 0px, transparent 50%),' +
+            'radial-gradient(circle at 0% 100%, rgba(16,185,129,0.04) 0px, transparent 50%)';
+    }
+    /* .text-plasma already uses CSS animation so it adapts visually;
+       just ensure the body text color is correct for light vs dark */
+    if (d.textDim) document.body.style.color = d.textDim;
+});
+</script>
 
     <div class="max-w-6xl mx-auto px-4 pt-4">
         
@@ -199,4 +262,3 @@
     </script>
 </body>
 </html>
-
