@@ -1,0 +1,122 @@
+[
+  {
+    "year_title": "1st Year",
+    "subjects": [
+      {
+        "subject_name": { "bn": "মৌলিক গণিত", "en": "Basic Mathematics" },
+        "git_path": "/1st-year/basic-mathematics",
+        "chapters": [
+          {
+            "chapter_title": { "bn": "১ম অধ্যায়ঃ মৌলিক ধারনার পর্যালোচনা", "en": "Chapter 01: Review of Basic Concepts" },
+            "topics": [
+              { "bn": "মূলদ সংখ্যা", "en": "Rational Number", "video_id": "2zEFCCPTsrM" },
+              { "bn": "বাস্তব সংখ্যার ধারনা", "en": "Concept of Real Numbers", "video_id": "ELqYWI12q-c" }
+            ]
+          }
+        ]
+      },
+      {
+        "subject_name": { "bn": "মৌলিক ব্যষ্টিক অর্থনীতি", "en": "Basic Microeconomics" },
+        "git_path": "/1st-year/microeconomics",
+        "chapters": [
+          {
+            "chapter_title": { "bn": "১ম অধ্যায়ঃ পরিচিতি", "en": "Chapter 01: Introduction" },
+            "topics": [
+              { "bn": "দুষ্পাপ্যতা ও নির্বাচন", "en": "Scarcity and Choice", "video_id": "vid_micro_01" }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+
+
+
+
+
+  
+  {
+    "year_title": "2nd Year",
+    "subjects": [
+      {
+        "subject_name": { "bn": "মৌলিক সামষ্টিক অর্থনীতি", "en": "Basic Macroeconomics" },
+        "git_path": "/2nd-year/macroeconomics",
+        "chapters": [
+          {
+            "chapter_title": { "bn": "জাতীয় আয় পরিমাপ", "en": "Measuring National Income" },
+            "topics": [
+              { "bn": "জিডিপি ও জিএনপি", "en": "GDP and GNP", "video_id": "vid_macro_02" }
+            ]
+          }
+        ]
+      },
+      {
+        "subject_name": { "bn": "গাণিতিক অর্থনীতি", "en": "Mathematical Economics" },
+        "git_path": "/2nd-year/mathematical-economics",
+        "chapters": []
+      }
+    ]
+  },
+
+
+
+
+
+
+
+
+  {
+    "year_title": "3rd Year",
+    "subjects": [
+      {
+        "subject_name": { "bn": "সরকারি অর্থব্যবস্থা", "en": "Public Finance" },
+        "git_path": "/3rd-year/public-finance",
+        "chapters": [
+          {
+            "chapter_title": { "bn": "খাজনা ও কর", "en": "Taxation and Revenue" },
+            "topics": [
+              { "bn": "প্রত্যক্ষ ও পরোক্ষ কর", "en": "Direct and Indirect Tax", "video_id": "vid_pub_03" }
+            ]
+          }
+        ]
+      },
+      {
+        "subject_name": { "bn": "পরিসংখ্যান", "en": "Statistics for Economics" },
+        "git_path": "/3rd-year/statistics",
+        "chapters": []
+      }
+    ]
+  },
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  {
+    "year_title": "4th Year",
+    "subjects": [
+      {
+        "subject_name": { "bn": "উন্নয়ন অর্থনীতি", "en": "Development Economics" },
+        "git_path": "/4th-year/development-economics",
+        "chapters": [
+          {
+            "chapter_title": { "bn": "উন্নয়নের মডেল", "en": "Development Models" },
+            "topics": [
+              { "bn": "রোস্টোর অর্থনৈতিক প্রবৃদ্ধির ধাপ", "en": "Rostow's Stages of Growth", "video_id": "vid_dev_04" }
+            ]
+          }
+        ]
+      },
+      {
+        "subject_name": { "bn": "আন্তর্জাতিক অর্থনীতি", "en": "International Economics" },
+        "git_path": "/4th-year/international-economics",
+        "chapters": []
+      }
+    ]
+  }
+]
