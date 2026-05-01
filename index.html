@@ -1090,6 +1090,7 @@ function setAccent(hex) {
     s.classList.toggle('active', s.style.background.toLowerCase() === hex.toLowerCase() ||
       s.style.backgroundColor.toLowerCase() === hex.toLowerCase());
   });
+  broadcastThemeToIframe();
 }
 
 /* ══════════════════════════════════════════
@@ -1117,6 +1118,7 @@ function setBgTheme(theme) {
   document.documentElement.setAttribute('data-theme', theme);
   localStorage.setItem('eduyomi-theme', theme);
   updateThemeIcon(theme);
+  broadcastThemeToIframe();
 }
 
 updateThemeIcon(document.documentElement.getAttribute('data-theme') || 'dark');
@@ -1488,6 +1490,29 @@ function showYear(n, btn) {
 /* ══════════════════════════════════════════
    POPUP
 ══════════════════════════════════════════ */
+function getThemeVars() {
+  const style = getComputedStyle(document.documentElement);
+  return {
+    type: 'eduyomi-theme',
+    bg:     style.getPropertyValue('--bg').trim()     || '#0d0e1a',
+    bgNav:  style.getPropertyValue('--bg-nav').trim() || 'rgba(13,14,26,0.84)',
+    accent: style.getPropertyValue('--accent-custom').trim()
+            || localStorage.getItem('eduyomi-accent') || '#7c6af7',
+    border: style.getPropertyValue('--border').trim() || 'rgba(255,255,255,0.09)',
+    textMain:  style.getPropertyValue('--text-primary').trim()   || '#eef0ff',
+    textDim:   style.getPropertyValue('--text-secondary').trim() || 'rgba(238,240,255,0.58)',
+    surface:   style.getPropertyValue('--surface').trim()        || 'rgba(255,255,255,0.05)',
+    isDark: document.documentElement.getAttribute('data-theme') !== 'light',
+  };
+}
+
+function broadcastThemeToIframe() {
+  const iframe = document.getElementById('popup-iframe');
+  if (iframe && iframe.contentWindow) {
+    try { iframe.contentWindow.postMessage(getThemeVars(), '*'); } catch(e) {}
+  }
+}
+
 function openPopup(page) {
   const overlay = document.getElementById('popup-overlay');
   const iframe  = document.getElementById('popup-iframe');
@@ -1495,6 +1520,7 @@ function openPopup(page) {
   overlay.classList.add('active');
   document.body.style.overflow = 'hidden';
   requestAnimationFrame(() => requestAnimationFrame(() => overlay.classList.add('visible')));
+  iframe.onload = () => broadcastThemeToIframe();
 }
 function closePopup() {
   const overlay = document.getElementById('popup-overlay');
@@ -1528,7 +1554,6 @@ document.addEventListener('keydown', e => {
     });
   }, { passive:true });
 })();
-
 loadMasterData();
 </script>
 </body>
