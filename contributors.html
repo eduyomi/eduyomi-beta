@@ -147,22 +147,88 @@
 window.addEventListener('message', function(e) {
     if (!e.data || e.data.type !== 'eduyomi-theme') return;
     const d = e.data;
+    const light = !d.isDark;
+
+    /* ── Exit button accent ── */
     const btn = document.getElementById('fixed-exit-btn');
-    if (btn && d.accent) {
-        btn.style.background  = d.accent;
-        btn.style.setProperty('--exit-accent', d.accent);
+    if (btn && d.accent) btn.style.background = d.accent;
+
+    /* ── Body background ── */
+    document.body.style.background = d.bg || (light ? '#f5f4fb' : '#050505');
+    document.body.style.backgroundImage =
+        'radial-gradient(circle at 100% 0%, rgba(30,58,138,0.08) 0px, transparent 50%),' +
+        'radial-gradient(circle at 0% 100%, rgba(16,185,129,0.04) 0px, transparent 50%)';
+
+    /* ── Body text color ── */
+    document.body.style.color = light ? '#13111f' : 'rgb(203,213,225)';
+
+    /* ── Join box ── */
+    const joinBox = document.querySelector('.join-box');
+    if (joinBox) {
+        joinBox.style.background  = light ? 'rgba(255,255,255,0.85)' : 'rgba(2,6,23,0.80)';
+        joinBox.style.borderColor = light ? 'rgba(0,0,0,0.12)'       : 'rgba(51,65,85,1)';
+        joinBox.style.boxShadow   = light ? '0 8px 32px rgba(0,0,0,0.10)' : '';
     }
-    /* Repaint page bg to match parent */
-    if (d.bg) {
-        document.body.style.background = d.bg;
-        /* Tweak gradient to stay subtle over new bg */
-        document.body.style.backgroundImage =
-            'radial-gradient(circle at 100% 0%, rgba(30,58,138,0.08) 0px, transparent 50%),' +
-            'radial-gradient(circle at 0% 100%, rgba(16,185,129,0.04) 0px, transparent 50%)';
+
+    /* ── "Add your profile" text ── */
+    const addTxt = document.querySelector('.join-box p');
+    if (addTxt) addTxt.style.color = light ? '#13111f' : '#ffffff';
+
+    /* ── Contributor cards ── */
+    document.querySelectorAll('.glass-card').forEach(card => {
+        card.style.background   = light ? 'rgba(255,255,255,0.75)' : 'rgba(255,255,255,0.03)';
+        card.style.borderColor  = light ? 'rgba(0,0,0,0.10)'       : 'rgba(255,255,255,0.08)';
+        card.style.boxShadow    = light ? '0 2px 12px rgba(0,0,0,0.07)' : 'none';
+    });
+
+    /* ── Card names (h3 inside cards) ── */
+    document.querySelectorAll('.glass-card h3.card-name').forEach(el => {
+        el.style.color = light ? '#13111f' : '#ffffff';
+    });
+
+    /* ── Sub-role text ── */
+    document.querySelectorAll('.sub-text-small').forEach(el => {
+        el.style.color = light ? '#475569' : '#94a3b8';
+    });
+
+    /* ── Serial ghost numbers on cards ── */
+    document.querySelectorAll('.serial-number').forEach(el => {
+        el.style.color = light ? 'rgba(0,0,0,0.05)' : 'rgba(255,255,255,0.04)';
+    });
+
+    /* ── Avatar bg (image wrapper) ── */
+    document.querySelectorAll('.glass-card .bg-slate-900').forEach(el => {
+        el.style.background = light ? '#e2e8f0' : '#0f172a';
+    });
+
+    /* ── Footer ── */
+    const footer = document.querySelector('footer');
+    if (footer) {
+        footer.style.borderColor = light ? 'rgba(0,0,0,0.10)' : '';
+        footer.style.color       = light ? '#94a3b8' : '#334155';
     }
-    /* .text-plasma already uses CSS animation so it adapts visually;
-       just ensure the body text color is correct for light vs dark */
-    if (d.textDim) document.body.style.color = d.textDim;
+
+    /* ── Profile Modal ── */
+    const modalContent = document.getElementById('modalContent');
+    if (modalContent) {
+        modalContent.style.background   = light ? '#ffffff'              : '#09090b';
+        modalContent.style.borderColor  = light ? 'rgba(0,0,0,0.12)'    : 'rgba(255,255,255,0.10)';
+    }
+    const modalName = document.getElementById('modalName');
+    if (modalName) modalName.style.color = light ? '#13111f' : '#ffffff';
+
+    const modalSerial = document.getElementById('modalSerial');
+    if (modalSerial) modalSerial.style.color = light ? 'rgba(0,0,0,0.04)' : 'rgba(255,255,255,0.03)';
+
+    /* Modal close button */
+    const modalClose = document.querySelector('#modalContent > button');
+    if (modalClose) {
+        modalClose.style.background = light ? '#13111f' : '#ffffff';
+        modalClose.style.color      = light ? '#ffffff' : '#000000';
+    }
+
+    /* ── Store mode for openModal to use ── */
+    document.body.dataset.lightMode = light ? '1' : '0';
 });
 </script>
 
@@ -248,6 +314,22 @@ window.addEventListener('message', function(e) {
             modal.classList.add('flex');
             setTimeout(() => content.classList.add('scale-100'), 10);
             document.body.style.overflow = 'hidden';
+
+            /* Apply current theme to freshly-shown modal */
+            const light = document.body.dataset.lightMode === '1';
+            content.style.background  = light ? '#ffffff'           : '#09090b';
+            content.style.borderColor = light ? 'rgba(0,0,0,0.12)' : 'rgba(255,255,255,0.10)';
+            document.getElementById('modalName').style.color = light ? '#13111f' : '#ffffff';
+            document.getElementById('modalSerial').style.color = light ? 'rgba(0,0,0,0.04)' : 'rgba(255,255,255,0.03)';
+            const closeBtn = content.querySelector('button');
+            if (closeBtn) {
+                closeBtn.style.background = light ? '#13111f' : '#ffffff';
+                closeBtn.style.color      = light ? '#ffffff' : '#000000';
+            }
+            /* sub-role text inside modal */
+            content.querySelectorAll('.sub-text-small').forEach(el => {
+                el.style.color = light ? '#475569' : '#94a3b8';
+            });
         }
 
         function closeModal() {
