@@ -9,13 +9,28 @@
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;500;700;800&display=swap');
 
-        /* ── Transparent so parent page bleeds through the iframe ── */
-        html { background: transparent !important; }
+        /* ── Solid background (no transparency) ── */
+        html { background: #050505; }
         body {
             font-family: 'Space Grotesk', sans-serif;
-            background: transparent;
+            background: #050505;
+            background-image:
+                radial-gradient(circle at 100% 0%, rgba(30,58,138,0.10) 0px, transparent 50%),
+                radial-gradient(circle at 0% 100%, rgba(16,185,129,0.05) 0px, transparent 50%);
             -webkit-tap-highlight-color: transparent;
         }
+        body[data-light="1"] {
+            background: #f5f4fb;
+            background-image:
+                radial-gradient(circle at 100% 0%, rgba(58,134,255,0.07) 0px, transparent 50%),
+                radial-gradient(circle at 0% 100%, rgba(16,185,129,0.04) 0px, transparent 50%);
+        }
+
+        /* ── Accent scrollbar ── */
+        ::-webkit-scrollbar       { width: 4px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: var(--exit-accent, #3a86ff); border-radius: 10px; }
+        * { scrollbar-width: thin; scrollbar-color: var(--exit-accent, #3a86ff) transparent; }
 
         /* ══════════════════════════════════════
            CSS VARIABLE SETS  (dark = default)
@@ -189,23 +204,38 @@
 
         /* ── Fixed Exit Button ── */
         #fixed-exit-btn {
-            position: fixed; bottom: 24px; right: 24px;
+            position: fixed; bottom: 24px;
+            left: 50%; transform: translateX(-50%);
             z-index: 9999;
-            width: 48px; height: 48px; border-radius: 50%;
-            background: var(--exit-accent);
-            border: 2px solid rgba(255,255,255,0.18);
-            box-shadow: 0 4px 20px rgba(0,0,0,0.30);
+            height: 42px;
+            padding: 0 20px 0 16px;
+            border-radius: 999px;
+            background: var(--exit-accent, #3a86ff);
+            border: none;
+            box-shadow: 0 4px 18px rgba(0,0,0,0.28), 0 0 0 1px rgba(255,255,255,0.10);
             cursor: pointer;
-            display: flex; align-items: center; justify-content: center;
-            transition: transform 0.2s, box-shadow 0.2s, background 0.3s;
+            display: flex; align-items: center; gap: 7px;
+            color: #fff;
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 0.78rem;
+            font-weight: 700;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            transition: opacity 0.25s, transform 0.25s, box-shadow 0.18s, background 0.3s;
+            opacity: 1;
         }
-        #fixed-exit-btn:hover  { transform: scale(1.1); box-shadow: 0 6px 28px rgba(0,0,0,0.45); }
-        #fixed-exit-btn:active { transform: scale(0.95); }
+        #fixed-exit-btn.btn-hidden {
+            opacity: 0;
+            transform: translateX(-50%) translateY(16px);
+            pointer-events: none;
+        }
+        #fixed-exit-btn:hover  { box-shadow: 0 6px 24px rgba(0,0,0,0.38), 0 0 0 1px rgba(255,255,255,0.15); }
+        #fixed-exit-btn:active { opacity: 0.85; }
         #fixed-exit-btn svg {
-            width: 20px; height: 20px;
+            width: 15px; height: 15px;
             stroke: #fff; fill: none;
             stroke-width: 2.5; stroke-linecap: round; stroke-linejoin: round;
-            pointer-events: none;
+            flex-shrink: 0;
         }
 
         @media (max-width: 640px) {
@@ -226,6 +256,7 @@
 <!-- Fixed Exit Button — always visible, never scrolls -->
 <button id="fixed-exit-btn" onclick="window.parent.closePopup()" title="Close">
     <svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+    Close
 </button>
 
 <script>
@@ -233,14 +264,24 @@
 window.addEventListener('message', function(e) {
     if (!e.data || e.data.type !== 'eduyomi-theme') return;
     const d = e.data;
-    /* One attribute flip triggers the entire CSS-var swap */
     document.body.dataset.light = d.isDark ? '0' : '1';
-    /* Update exit button accent */
     if (d.accent) {
         document.documentElement.style.setProperty('--exit-accent', d.accent);
         document.getElementById('fixed-exit-btn').style.background = d.accent;
     }
 });
+
+/* ── Hide exit button on scroll down, show on scroll up ── */
+(function() {
+    let lastY = 0;
+    window.addEventListener('scroll', function() {
+        const y   = window.scrollY;
+        const btn = document.getElementById('fixed-exit-btn');
+        if (y > lastY + 6 && y > 40)  btn.classList.add('btn-hidden');
+        else if (y < lastY - 6)        btn.classList.remove('btn-hidden');
+        lastY = y;
+    }, { passive: true });
+})();
 </script>
 
 <div class="max-w-6xl mx-auto px-4 pt-4">
