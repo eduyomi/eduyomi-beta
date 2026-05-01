@@ -818,9 +818,10 @@
       transform: scale(.88); opacity: 0;
       transition: transform .4s cubic-bezier(.22,1,.36,1), opacity .4s;
       box-shadow: 0 40px 80px rgba(0,0,0,.6);
+      background: transparent;
     }
     #popup-overlay.visible #popup-frame-wrap { transform: scale(1); opacity: 1; }
-    #popup-iframe { width:100%; height:85vh; max-height:85vh; border:none; display:block; border-radius:28px; }
+    #popup-iframe { width:100%; height:85vh; max-height:85vh; border:none; display:block; border-radius:28px; background:transparent; }
 
     /* ═══════════════════════════════════
        ANIMATIONS
@@ -1038,7 +1039,7 @@
 <!-- Popup overlay -->
 <div id="popup-overlay" onclick="if(event.target===this)closePopup()">
   <div id="popup-frame-wrap">
-    <iframe id="popup-iframe" src="" title="Popup"></iframe>
+    <iframe id="popup-iframe" src="" title="Popup" allowtransparency="true"></iframe>
   </div>
 </div>
 
@@ -1554,6 +1555,7 @@ document.addEventListener('keydown', e => {
     });
   }, { passive:true });
 })();
+  
 loadMasterData();
 </script>
 </body>
