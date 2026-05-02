@@ -518,15 +518,47 @@
     .brm-restore-label { font-size: .8rem; color: var(--text-muted); margin-bottom: 10px; }
     #brm-file-input { display: none; }
 
-    /* Settings Modal */
+    /* Settings Page (full page, not popup) */
     #settingsModal {
       position: fixed; inset: 0; z-index: 9000;
-      background: rgba(0,0,0,0.55); backdrop-filter: blur(6px);
-      display: flex; align-items: center; justify-content: center;
-      opacity: 0; pointer-events: none; transition: opacity .25s;
+      background: var(--bg);
+      display: none; flex-direction: column;
+      align-items: center;
+      overflow-y: auto;
+      opacity: 0; transition: opacity .25s;
     }
-    #settingsModal.open { opacity: 1; pointer-events: auto; }
-    #settingsModal.open .brm-box { transform: translateY(0); }
+    #settingsModal.open { display: flex; opacity: 1; }
+    #settingsModal .brm-box {
+      width: 100%; max-width: 640px;
+      background: var(--bg) !important;
+      border: none !important;
+      box-shadow: none !important;
+      border-radius: 0 !important;
+      padding: 24px 24px 60px !important;
+      transform: none !important;
+    }
+    #settingsModal .settings-page-header {
+      display: flex; align-items: center; gap: 12px;
+      padding: 16px 24px;
+      width: 100%; max-width: 640px;
+      border-bottom: 1px solid var(--border);
+      position: sticky; top: 0;
+      background: var(--bg);
+      z-index: 10;
+    }
+    #settingsModal .settings-back-btn {
+      width: 36px; height: 36px; border-radius: 50%;
+      border: 1px solid var(--border); background: var(--surface);
+      color: var(--text-secondary); cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      transition: all var(--transition); flex-shrink: 0;
+    }
+    #settingsModal .settings-back-btn:hover { border-color: var(--accent); color: var(--accent); }
+    #settingsModal .settings-back-btn svg { width:16px; height:16px; stroke:currentColor; fill:none; stroke-width:2.2; stroke-linecap:round; stroke-linejoin:round; }
+    #settingsModal .settings-page-title {
+      font-family: var(--font-display); font-size: 1.15rem; font-weight: 800;
+      color: var(--text-primary);
+    }
     .settings-section { font-size: .68rem; font-weight: 700; letter-spacing: 1.2px; text-transform: uppercase;
       color: var(--text-muted); margin: 16px 0 8px; }
     .settings-section:first-of-type { margin-top: 4px; }
@@ -2950,12 +2982,17 @@ function doRestore(input) {
    SETTINGS MODAL
 ════════════════════════════════════════ */
 function openSettingsModal() {
-  const wbChk = document.getElementById('stgl-watchbookmark');
-  if (wbChk) wbChk.checked = settingsState.showWatchBookmark;
-  document.getElementById('settingsModal').classList.add('open');
+  applySettingsUI();
+  const modal = document.getElementById('settingsModal');
+  modal.style.opacity = '0';
+  modal.classList.add('open');
+  modal.scrollTop = 0;
+  requestAnimationFrame(() => requestAnimationFrame(() => { modal.style.opacity = ''; }));
 }
 function closeSettingsModal() {
-  document.getElementById('settingsModal').classList.remove('open');
+  const modal = document.getElementById('settingsModal');
+  modal.style.opacity = '0';
+  setTimeout(() => { modal.classList.remove('open'); modal.style.opacity = ''; }, 250);
 }
 function toggleSettingWatchBookmark(val) {
   settingsState.showWatchBookmark = val;
@@ -3141,9 +3178,9 @@ function openDlPopup() {
   if (!currentVideoId) return;
   const plat = settingsState.dlPlatform || 'android';
   if (plat === 'android') {
-    // Call YTDLnis via deep link
     const ytUrl = 'https://www.youtube.com/watch?v=' + currentVideoId;
     const base  = (settingsState.ytdlnisUrl || '').trim();
+    // Use custom base URL if set, otherwise use ytdlnis:// scheme directly
     const deepLink = base
       ? base + encodeURIComponent(ytUrl)
       : 'ytdlnis://download?url=' + encodeURIComponent(ytUrl);
@@ -3207,7 +3244,7 @@ async function startBrowserDownload(idx) {
   if (activeRow)    activeRow.classList.add('dl-row-loading', 'dl-row-active');
   if (activeAction) activeAction.innerHTML = '<div class="dl-spinner"></div>';
 
-  setDlStatus('loading', 'Launching yt-dlp…');
+  setDlStatus('loading', 'Preparing download command…');
 
   // Build yt-dlp command using configured engine path or default
   const enginePath = (settingsState.ytdlpEnginePath || '').trim()
@@ -3222,33 +3259,31 @@ async function startBrowserDownload(idx) {
   // Build the full command
   const cmd = `"${enginePath}" -f "${formatArg}" --merge-output-format mp4 -o "${outputPath}" "${ytUrl}"`;
 
-  // Launch via PowerShell URI scheme — opens a terminal window running yt-dlp
-  // This works in Edge/Chrome on Windows when the user allows it once
-  const psCmd = `Start-Process powershell -ArgumentList '-NoExit','-Command','${cmd.replace(/'/g, "''")}' -Verb RunAs`;
-  const psUri = `powershell:${encodeURIComponent(psCmd)}`;
+  // Auto-copy command to clipboard then try Windows Terminal URI
+  const cmdSafe = cmd.replace(/\\/g, '\\\\').replace(/'/g, "\\'");
+  try { await navigator.clipboard.writeText(cmd); } catch(e) {}
 
-  // Try ms-msdt / shell URI to open terminal (Windows only)
-  try {
-    window.location.href = psUri;
-    setDlStatus('ok', 'yt-dlp launched! Check your terminal & Downloads folder.');
-    resetDlRow(activeRow);
-  } catch(e) {
-    // Fallback: show the command for manual copy
-    setDlStatus('err', 'Could not auto-launch. Copy the command below.');
-    resetDlRow(activeRow);
-    // Show copyable command box
-    const statusEl = document.getElementById('dl-status');
-    if (statusEl) {
-      statusEl.style.display = 'block';
-      statusEl.className = 'dl-status dl-status-loading';
-      statusEl.innerHTML = `
-        <div style="width:100%">
-          <div style="font-size:.7rem;color:var(--text-muted);margin-bottom:6px;">Run this in PowerShell / CMD:</div>
-          <div style="background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:8px 10px;font-family:monospace;font-size:.65rem;word-break:break-all;color:var(--accent);user-select:all;">${cmd}</div>
-          <button onclick="navigator.clipboard.writeText('${cmd.replace(/'/g,"\\'")}');this.textContent='Copied!'" style="margin-top:8px;width:100%;height:32px;border-radius:8px;background:var(--accent);border:none;color:#fff;font-weight:700;font-size:.75rem;cursor:pointer;">Copy Command</button>
-        </div>`;
-    }
+  // Try Windows Terminal URI (wt://) — works on Windows 11/10 with Windows Terminal installed
+  const wtUri = `wt:new-tab cmd /k ${encodeURIComponent(cmd)}`;
+  const linkEl = document.createElement('a');
+  linkEl.href = wtUri; linkEl.style.display = 'none';
+  document.body.appendChild(linkEl);
+  try { linkEl.click(); } catch(e) {}
+  setTimeout(() => { try { document.body.removeChild(linkEl); } catch(e) {} }, 500);
+
+  // Always show the command box (terminal may not open silently)
+  const statusEl = document.getElementById('dl-status');
+  if (statusEl) {
+    statusEl.style.display = 'block';
+    statusEl.className = 'dl-status dl-status-ok';
+    statusEl.innerHTML = `
+      <div style="width:100%">
+        <div style="font-size:.75rem;font-weight:700;color:#4ade80;margin-bottom:6px;">✓ Command copied to clipboard! Paste in CMD or PowerShell:</div>
+        <div style="background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:8px 10px;font-family:monospace;font-size:.65rem;word-break:break-all;color:var(--accent);user-select:all;">${cmd}</div>
+        <button onclick="navigator.clipboard.writeText(this.dataset.cmd);this.textContent='✓ Copied!';setTimeout(()=>this.textContent='Copy Command',2000)" data-cmd="${cmdSafe}" style="margin-top:8px;width:100%;height:32px;border-radius:8px;background:var(--accent);border:none;color:#fff;font-weight:700;font-size:.75rem;cursor:pointer;">Copy Command</button>
+      </div>`;
   }
+  resetDlRow(activeRow);
 }
 
 
@@ -3610,11 +3645,17 @@ setTimeout(applySettingsUI, 0);
   </div>
 </div>
 
-<!-- SETTINGS MODAL -->
-<div id="settingsModal" onclick="if(event.target===this)closeSettingsModal()">
+<!-- SETTINGS PAGE -->
+<div id="settingsModal">
+  <!-- Sticky header with back button -->
+  <div class="settings-page-header">
+    <button class="settings-back-btn" onclick="closeSettingsModal()">
+      <svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg>
+    </button>
+    <div class="settings-page-title">Settings</div>
+  </div>
   <div class="brm-box" style="position:relative;">
-    <div class="brm-title">Settings</div>
-    <div class="brm-sub">Customize your Eduyomi experience.</div>
+    <div class="brm-sub" style="margin-top:8px;">Customize your Eduyomi experience.</div>
 
     <div class="settings-section">Data &amp; Backup</div>
     <div class="settings-toggle-row" onclick="closeMobileDrawer();closeSettingsModal();openBackupRestoreModal('backup')" style="cursor:pointer;padding:12px 0;">
@@ -3653,10 +3694,6 @@ setTimeout(applySettingsUI, 0);
         <span class="stgl-track"></span>
       </label>
     </div>
-
-    <button class="vid-action-btn brm-close" onclick="closeSettingsModal()" style="position:absolute;top:16px;right:16px;">
-      <svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
-    </button>
 
     <div class="settings-section">Download</div>
 
