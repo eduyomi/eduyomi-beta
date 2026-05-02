@@ -11,10 +11,11 @@
               { "en": "Introduction to Variables", "bn": "চলক পরিচিতি", "video_id": "2U-znILCZFM" },
               { "en": "Linear Equations", "bn": "রৈখিক সমীকরণ", "video_id": "9ITsXICV4LM" },
               { "en": "Quadratic Equations", "bn": "দ্বিঘাত সমীকরণ", "video_id": "IUC09hK7Zbk" },
+              { "en": "Factorisation", "bn": "উৎপাদকে বিশ্লেষণ" }
             ]
           },
           {
-            "chapter_title": { "en": "2.Geometry", "bn": "জ্যামিতি" },
+            "chapter_title": { "en": "Geometry", "bn": "জ্যামিতি" },
             "topics": [
               { "en": "Triangles & Angles", "bn": "ত্রিভুজ ও কোণ", "video_id": "hBM_HH_HaP8" },
               { "en": "Circles", "bn": "বৃত্ত", "video_id": "4_KLT_Kmzns" },
