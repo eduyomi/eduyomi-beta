@@ -1,121 +1,95 @@
 [
   {
-    "year_title": "1st Year",
+    "year_title": "Year 1",
     "subjects": [
       {
-        "subject_name": { "bn": "মৌলিক গণিত", "en": "Basic Mathematics" },
-        "git_path": "/1st-year/basic-mathematics",
+        "subject_name": { "en": "Mathematics", "bn": "গণিত" },
         "chapters": [
           {
-            "chapter_title": { "bn": "১ম অধ্যায়ঃ মৌলিক ধারনার পর্যালোচনা", "en": "Chapter 01: Review of Basic Concepts" },
+            "chapter_title": { "en": "Algebra Basics", "bn": "বীজগণিতের মূলনীতি" },
             "topics": [
-              { "bn": "মূলদ সংখ্যা", "en": "Rational Number", "video_id": "2zEFCCPTsrM" },
-              { "bn": "বাস্তব সংখ্যার ধারনা", "en": "Concept of Real Numbers", "video_id": "ELqYWI12q-c" }
+              { "en": "Introduction to Variables", "bn": "চলক পরিচিতি", "video_id": "2U-znILCZFM" },
+              { "en": "Linear Equations", "bn": "রৈখিক সমীকরণ", "video_id": "9ITsXICV4LM" },
+              { "en": "Quadratic Equations", "bn": "দ্বিঘাত সমীকরণ", "video_id": "IUC09hK7Zbk" },
+            ]
+          },
+          {
+            "chapter_title": { "en": "2.Geometry", "bn": "জ্যামিতি" },
+            "topics": [
+              { "en": "Triangles & Angles", "bn": "ত্রিভুজ ও কোণ", "video_id": "hBM_HH_HaP8" },
+              { "en": "Circles", "bn": "বৃত্ত", "video_id": "4_KLT_Kmzns" },
+              { "en": "Area & Perimeter", "bn": "ক্ষেত্রফল ও পরিসীমা", "video_id": "C7tNc3tFMKU" }
             ]
           }
         ]
       },
       {
-        "subject_name": { "bn": "মৌলিক ব্যষ্টিক অর্থনীতি", "en": "Basic Microeconomics" },
-        "git_path": "/1st-year/microeconomics",
+        "subject_name": { "en": "Physics", "bn": "পদার্থবিজ্ঞান" },
         "chapters": [
           {
-            "chapter_title": { "bn": "১ম অধ্যায়ঃ পরিচিতি", "en": "Chapter 01: Introduction" },
+            "chapter_title": { "en": "Motion & Forces", "bn": "গতি ও বল" },
             "topics": [
-              { "bn": "দুষ্পাপ্যতা ও নির্বাচন", "en": "Scarcity and Choice", "video_id": "vid_micro_01" }
+              { "en": "Newton's Laws", "bn": "নিউটনের সূত্র", "video_id": "kKKM8Y-u7ds" },
+              { "en": "Gravity", "bn": "মহাকর্ষ", "video_id": "E43-CfukEgs" },
+              { "en": "Friction", "bn": "ঘর্ষণ", "video_id": "fo_pmp5rtEY" }
+            ]
+          },
+          {
+            "chapter_title": { "en": "Waves & Sound", "bn": "তরঙ্গ ও শব্দ" },
+            "topics": [
+              { "en": "What is a Wave?", "bn": "তরঙ্গ কী?", "video_id": "IYCSE5sG2QA" },
+              { "en": "Sound Waves", "bn": "শব্দ তরঙ্গ", "video_id": "GkNJvZINSEY" },
+              { "en": "The Doppler Effect", "bn": "ডপলার প্রভাব" }
             ]
           }
         ]
       }
     ]
   },
-
-
-
-
-
-  
   {
-    "year_title": "2nd Year",
+    "year_title": "Year 2",
     "subjects": [
       {
-        "subject_name": { "bn": "মৌলিক সামষ্টিক অর্থনীতি", "en": "Basic Macroeconomics" },
-        "git_path": "/2nd-year/macroeconomics",
+        "subject_name": { "en": "Chemistry", "bn": "রসায়ন" },
         "chapters": [
           {
-            "chapter_title": { "bn": "জাতীয় আয় পরিমাপ", "en": "Measuring National Income" },
+            "chapter_title": { "en": "Atomic Structure", "bn": "পারমাণবিক গঠন" },
             "topics": [
-              { "bn": "জিডিপি ও জিএনপি", "en": "GDP and GNP", "video_id": "vid_macro_02" }
+              { "en": "The Atom", "bn": "পরমাণু", "video_id": "xazQRcBFKSo" },
+              { "en": "Electrons & Orbitals", "bn": "ইলেকট্রন ও অরবিটাল", "video_id": "Ewf3YGEyaB0" },
+              { "en": "Periodic Table", "bn": "পর্যায় সারণি", "video_id": "0RRVV4Diomg" }
+            ]
+          },
+          {
+            "chapter_title": { "en": "Chemical Reactions", "bn": "রাসায়নিক বিক্রিয়া" },
+            "topics": [
+              { "en": "Types of Reactions", "bn": "বিক্রিয়ার প্রকারভেদ", "video_id": "jdSaJEHGAR4" },
+              { "en": "Balancing Equations", "bn": "সমীকরণ সাম্য", "video_id": "RnGe3uTByZk" },
+              { "en": "Acids & Bases", "bn": "অ্যাসিড ও ক্ষার", "video_id": "HJoUiRxRKKI" }
             ]
           }
         ]
       },
       {
-        "subject_name": { "bn": "গাণিতিক অর্থনীতি", "en": "Mathematical Economics" },
-        "git_path": "/2nd-year/mathematical-economics",
-        "chapters": []
-      }
-    ]
-  },
-
-
-
-
-
-
-
-
-  {
-    "year_title": "3rd Year",
-    "subjects": [
-      {
-        "subject_name": { "bn": "সরকারি অর্থব্যবস্থা", "en": "Public Finance" },
-        "git_path": "/3rd-year/public-finance",
+        "subject_name": { "en": "Biology", "bn": "জীববিজ্ঞান" },
         "chapters": [
           {
-            "chapter_title": { "bn": "খাজনা ও কর", "en": "Taxation and Revenue" },
+            "chapter_title": { "en": "Cell Biology", "bn": "কোষ জীববিজ্ঞান" },
             "topics": [
-              { "bn": "প্রত্যক্ষ ও পরোক্ষ কর", "en": "Direct and Indirect Tax", "video_id": "vid_pub_03" }
+              { "en": "Cell Structure", "bn": "কোষের গঠন", "video_id": "URUJD5NEXC8" },
+              { "en": "Cell Division (Mitosis)", "bn": "কোষ বিভাজন (মাইটোসিস)", "video_id": "L0k-enzoeOM" },
+              { "en": "DNA & Genetics", "bn": "ডিএনএ ও জেনেটিক্স", "video_id": "o_-6JXLYS-k" }
+            ]
+          },
+          {
+            "chapter_title": { "en": "Human Body", "bn": "মানব দেহ" },
+            "topics": [
+              { "en": "Digestive System", "bn": "পরিপাক তন্ত্র", "video_id": "Og5xAdC8EUI" },
+              { "en": "Circulatory System", "bn": "সংবহন তন্ত্র", "video_id": "CWFyxn0qDEU" },
+              { "en": "Nervous System", "bn": "স্নায়ুতন্ত্র", "video_id": "OdBHJqDNDhI" }
             ]
           }
         ]
-      },
-      {
-        "subject_name": { "bn": "পরিসংখ্যান", "en": "Statistics for Economics" },
-        "git_path": "/3rd-year/statistics",
-        "chapters": []
-      }
-    ]
-  },
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  {
-    "year_title": "4th Year",
-    "subjects": [
-      {
-        "subject_name": { "bn": "উন্নয়ন অর্থনীতি", "en": "Development Economics" },
-        "git_path": "/4th-year/development-economics",
-        "chapters": [
-          {
-            "chapter_title": { "bn": "উন্নয়নের মডেল", "en": "Development Models" },
-            "topics": [
-              { "bn": "রোস্টোর অর্থনৈতিক প্রবৃদ্ধির ধাপ", "en": "Rostow's Stages of Growth", "video_id": "vid_dev_04" }
-            ]
-          }
-        ]
-      },
-      {
-        "subject_name": { "bn": "আন্তর্জাতিক অর্থনীতি", "en": "International Economics" },
-        "git_path": "/4th-year/international-economics",
-        "chapters": []
       }
     ]
   }
