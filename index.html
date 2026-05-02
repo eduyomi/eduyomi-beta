@@ -725,64 +725,6 @@
     .q-pill:hover { background: var(--surface-hover); color: var(--text-primary); }
     .q-pill.active { background: var(--accent); border-color: var(--accent); color: white; }
 
-    /* Download popup */
-    .dl-popup-header {
-      display: flex; align-items: center; gap: 8px; margin-bottom: 10px;
-    }
-    .dl-popup-header-icon {
-      width: 28px; height: 28px; border-radius: 8px; flex-shrink: 0;
-      background: color-mix(in srgb,var(--accent) 18%,transparent);
-      display: flex; align-items: center; justify-content: center;
-    }
-    .dl-popup-header-icon svg { width:13px;height:13px;stroke:var(--accent);fill:none;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round; }
-    .dl-popup-header-text { flex:1; min-width:0; }
-    .dl-popup-title-main { font-family: var(--font-display); font-size:.8rem; font-weight:700; color:var(--text-primary); white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
-    .dl-popup-subtitle { font-size:.6rem; font-weight:600; letter-spacing:1.2px; text-transform:uppercase; color:var(--text-muted); margin-top:1px; }
-    .dl-divider { height:1px; background:var(--border); margin:8px 0 10px; }
-    .dl-rows { display:flex; flex-direction:column; gap:5px; }
-    .dl-row {
-      display:flex; align-items:center; gap:10px;
-      padding:9px 11px; border-radius:11px;
-      background:var(--surface); border:1px solid var(--border);
-      cursor:pointer; transition:all .15s; text-decoration:none;
-      position: relative; overflow: hidden;
-    }
-    .dl-row:hover { background:var(--surface-hover); border-color:color-mix(in srgb,var(--accent) 45%,transparent); }
-    .dl-row.dl-row-active { background:color-mix(in srgb,var(--accent) 12%,transparent); border-color:color-mix(in srgb,var(--accent) 55%,transparent); }
-    .dl-row.dl-row-loading { pointer-events:none; opacity:.75; }
-    .dl-row-badge {
-      font-size:.68rem; font-weight:800; letter-spacing:.3px;
-      padding:3px 7px; border-radius:6px; flex-shrink:0;
-      background:color-mix(in srgb,var(--accent) 16%,transparent);
-      color:var(--accent); border:1px solid color-mix(in srgb,var(--accent) 30%,transparent);
-      min-width:38px; text-align:center;
-    }
-    .dl-row-info { flex:1; min-width:0; }
-    .dl-row-label { font-size:.78rem; font-weight:600; color:var(--text-primary); }
-    .dl-row-sub { font-size:.62rem; color:var(--text-muted); margin-top:1px; }
-    .dl-row-action { flex-shrink:0; }
-    .dl-row-action svg { width:14px;height:14px;stroke:var(--text-muted);fill:none;stroke-width:2;stroke-linecap:round; transition:stroke .15s; }
-    .dl-row:hover .dl-row-action svg { stroke:var(--accent); }
-    /* mini spinner for loading state */
-    .dl-spinner {
-      width:14px; height:14px; border-radius:50%; flex-shrink:0;
-      border:2px solid rgba(255,255,255,0.15);
-      border-top-color:var(--accent);
-      animation:dl-spin .7s linear infinite;
-    }
-    @keyframes dl-spin { to { transform:rotate(360deg); } }
-    /* status bar */
-    .dl-status {
-      margin-top:9px; padding:9px 11px; border-radius:10px;
-      font-size:.7rem; font-weight:600; line-height:1.45;
-      display:flex; align-items:center; gap:8px;
-    }
-    .dl-status.dl-status-loading { background:rgba(255,255,255,0.05); color:var(--text-secondary); border:1px solid var(--border); }
-    .dl-status.dl-status-ok      { background:color-mix(in srgb,#22c55e 12%,transparent); color:#4ade80; border:1px solid color-mix(in srgb,#22c55e 30%,transparent); }
-    .dl-status.dl-status-err     { background:color-mix(in srgb,#ef4444 12%,transparent); color:#f87171; border:1px solid color-mix(in srgb,#ef4444 30%,transparent); }
-    .dl-status svg { width:13px;height:13px;stroke:currentColor;fill:none;stroke-width:2.2;stroke-linecap:round;flex-shrink:0; }
-    #dl-popup { width:280px; }
-
     .fs-btn {
       width: 44px; height: 44px; min-width: 44px; border-radius: 50%;
       background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.15);
@@ -799,21 +741,6 @@
       font-weight: 900; font-size: 1.4rem; opacity: 0; pointer-events: none;
       transition: opacity .2s; z-index: 200;
     }
-
-    #skip-ad-btn {
-      position: absolute; bottom: 80px; right: 16px;
-      display: flex; align-items: center; gap: 5px;
-      background: rgba(0,0,0,0.72); backdrop-filter: blur(8px);
-      border: 1px solid rgba(255,255,255,0.25); color: white;
-      padding: 8px 14px; border-radius: 6px;
-      font-size: .78rem; font-weight: 700; letter-spacing: .5px;
-      cursor: pointer; z-index: 250;
-      opacity: 0; pointer-events: none;
-      transition: opacity .3s, background .2s, transform .2s;
-    }
-    #skip-ad-btn.visible { opacity: 1; pointer-events: auto; }
-    #skip-ad-btn:hover { background: rgba(0,0,0,0.9); transform: scale(1.04); }
-    #skip-ad-btn svg { width: 13px; height: 13px; }
 
     /* Fullscreen — fit entire screen, no zoom/crop */
     .video-player-card:fullscreen,
@@ -1189,6 +1116,59 @@
     .no-results svg { width:48px; height:48px; opacity:.4; stroke:currentColor; fill:none; stroke-width:1.5; stroke-linecap:round; }
 
     /* ═══════════════════════════════════
+       FULL-SCREEN SPLASH LOADER
+    ═══════════════════════════════════ */
+    #splash-overlay {
+      position: fixed; inset: 0; z-index: 99999;
+      background: var(--bg);
+      display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 28px;
+      transition: opacity 0.5s ease, visibility 0.5s ease;
+    }
+    #splash-overlay.hidden { opacity: 0; visibility: hidden; pointer-events: none; }
+    .splash-logo {
+      display: flex; flex-direction: column; align-items: center; gap: 10px;
+    }
+    .splash-icon {
+      width: 72px; height: 72px; border-radius: 20px;
+      background: linear-gradient(135deg, var(--accent) 0%, var(--accent-alt) 60%, var(--pink) 100%);
+      display: flex; align-items: center; justify-content: center;
+      box-shadow: 0 0 40px color-mix(in srgb, var(--accent) 40%, transparent);
+      animation: splash-pulse 2s ease-in-out infinite;
+    }
+    @keyframes splash-pulse {
+      0%, 100% { box-shadow: 0 0 30px color-mix(in srgb, var(--accent) 30%, transparent); }
+      50%       { box-shadow: 0 0 55px color-mix(in srgb, var(--accent) 55%, transparent); }
+    }
+    .splash-icon svg { width: 38px; height: 38px; fill: #fff; }
+    .splash-title {
+      font-family: var(--font-display); font-size: 2rem; font-weight: 900; letter-spacing: -0.5px;
+      background: linear-gradient(120deg, var(--accent) 0%, var(--accent-alt) 50%, var(--pink) 100%);
+      background-size: 200% auto;
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+      animation: shimmer 3s linear infinite;
+    }
+    .splash-subtitle {
+      font-size: 0.78rem; color: var(--text-muted); letter-spacing: 0.12em; text-transform: uppercase; margin-top: -6px;
+    }
+    .splash-bar-wrap {
+      width: min(280px, 70vw); height: 3px; background: var(--border); border-radius: 99px; overflow: hidden;
+    }
+    .splash-bar {
+      height: 100%; width: 30%;
+      background: linear-gradient(90deg, var(--accent), var(--accent-alt), var(--pink));
+      border-radius: 99px;
+      animation: splash-slide 1.4s ease-in-out infinite;
+    }
+    @keyframes splash-slide {
+      0%   { transform: translateX(-100%); width: 40%; }
+      50%  { width: 60%; }
+      100% { transform: translateX(350%); width: 40%; }
+    }
+    .splash-status {
+      font-size: 0.78rem; color: var(--text-muted); letter-spacing: 0.03em;
+    }
+
+    /* ═══════════════════════════════════
        POPUP OVERLAY
     ═══════════════════════════════════ */
     #popup-overlay {
@@ -1297,54 +1277,9 @@
     /* ═══════════════════════════════════
        DOWNLOAD POPUP (bottom sheet)
     ═══════════════════════════════════ */
-    #dlPopupOverlay {
-      position: fixed; inset: 0; z-index: 9200;
-      background: rgba(0,0,0,0.78);
-      display: none; align-items: flex-end; justify-content: center;
-      opacity: 0; transition: opacity .25s;
-    }
-    #dlPopupOverlay.active { display: flex; }
-    #dlPopupOverlay.visible { opacity: 1; }
-    #dlPopupBox {
-      width: 100%; max-width: 540px;
-      background: var(--bg);
-      border-radius: 28px 28px 0 0;
-      border: 1px solid var(--border);
-      border-bottom: none;
-      box-shadow: 0 -20px 60px rgba(0,0,0,.5);
-      max-height: 80vh;
-      display: flex; flex-direction: column;
-      transform: translateY(40px); opacity: 0;
-      transition: transform .35s cubic-bezier(.22,1,.36,1), opacity .35s;
-    }
-    #dlPopupOverlay.visible #dlPopupBox { transform: translateY(0); opacity: 1; }
-    .dlp-header {
-      display: flex; align-items: center; justify-content: space-between;
-      padding: 18px 20px 14px; border-bottom: 1px solid var(--border); flex-shrink: 0;
-    }
-    .dlp-title-wrap { display: flex; align-items: center; gap: 10px; }
-    .dlp-icon { width: 32px; height: 32px; border-radius: 10px;
-      background: color-mix(in srgb,var(--accent) 15%,transparent);
-      display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
     .dlp-icon svg { width:15px; height:15px; stroke:var(--accent); fill:none; stroke-width:2.2; stroke-linecap:round; stroke-linejoin:round; }
-    .dlp-title { font-family: var(--font-display); font-size: .95rem; font-weight: 700; }
-    .dlp-subtitle { font-size: .72rem; color: var(--text-muted); margin-top: 1px; }
-    .dlp-close {
-      width: 30px; height: 30px; border-radius: 50%; flex-shrink: 0;
-      background: var(--surface); border: 1px solid var(--border);
-      color: var(--text-muted); cursor: pointer;
-      display: flex; align-items: center; justify-content: center;
-      transition: all var(--transition);
-    }
     .dlp-close:hover { border-color: var(--accent); color: var(--accent); }
     .dlp-close svg { width:12px; height:12px; stroke:currentColor; fill:none; stroke-width:2.5; stroke-linecap:round; }
-    .dlp-list {
-      overflow-y: auto; padding: 12px 14px 8px; flex: 1;
-      display: flex; flex-direction: column; gap: 6px;
-    }
-    .dlp-footer {
-      flex-shrink: 0; padding: 6px 14px 20px;
-    }
 
     /* ═══════════════════════════════════
        ANIMATIONS
@@ -1380,6 +1315,24 @@
   </style>
 </head>
 <body>
+
+<!-- FULL-SCREEN SPLASH LOADER -->
+<div id="splash-overlay">
+  <div class="splash-logo">
+    <div class="splash-icon">
+      <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+        <path d="M12 3L1 9l11 6 9-4.91V17h2V9L12 3z"/>
+        <path d="M5 13.18v4L12 21l7-3.82v-4L12 17l-7-3.82z"/>
+      </svg>
+    </div>
+    <div class="splash-title">Eduyomi</div>
+    <div class="splash-subtitle">Free Education Portal</div>
+  </div>
+  <div class="splash-bar-wrap">
+    <div class="splash-bar"></div>
+  </div>
+  <div class="splash-status">Loading subjects…</div>
+</div>
 
 <div class="ambient"></div>
 
@@ -1537,9 +1490,6 @@
             <button class="vid-action-btn" id="vid-bookmark-btn" onclick="toggleVideoBookmarked()" title="Bookmark">
               <svg viewBox="0 0 24 24"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg>
             </button>
-            <button class="vid-action-btn" id="vid-dl-btn" onclick="openDlPopup()" title="Download" style="display:none">
-              <svg viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-            </button>
             <button class="video-close-btn" onclick="closePlayer()" title="Close player">
               <svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
             </button>
@@ -1583,10 +1533,6 @@
           </div>
         </div>
         <div id="gesture-toast"></div>
-        <div id="skip-ad-btn" onclick="skipAd(event)">
-          Skip Ad
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="13 17 18 12 13 7"/><polyline points="6 17 11 12 6 7"/></svg>
-        </div>
       </div>
 
       <!-- Popups — inside card so they appear in fullscreen too -->
@@ -1992,15 +1938,12 @@ function saveSettings() {
 }
 const _s = loadSettings();
 const settingsState = {
+  adBlockEnabled:    _s.adBlockEnabled    !== false,   // default true
   showWatchBookmark: _s.showWatchBookmark !== false,
   expandView:        _s.expandView        !== false,
   playerSpeed:       _s.playerSpeed       || '1',
   playerQuality:     _s.playerQuality     || 'auto',
   autoMarkWatched:   _s.autoMarkWatched   !== false,
-  showDownload:      _s.showDownload      !== false,   // default true
-  dlPlatform:        _s.dlPlatform        || 'android', // 'android' | 'windows'
-  ytdlnisUrl:        _s.ytdlnisUrl        || '',        // YTDLnis deep link base
-  ytdlpEnginePath:   _s.ytdlpEnginePath   || '',        // path to yt-dlp on Windows
 };
 
 async function loadMasterData() {
@@ -2017,6 +1960,9 @@ async function loadMasterData() {
 
 function buildPage() {
   document.getElementById('loadingState').style.display = 'none';
+  // Hide full-screen splash overlay now that data is ready
+  const splash = document.getElementById('splash-overlay');
+  if (splash) splash.classList.add('hidden');
   buildTabs();
   buildYearContents();
   buildSearchIndex();
@@ -2486,7 +2432,9 @@ function onYouTubeIframeAPIReady() {
     playerVars: {
       autoplay: 0, controls: 0, rel: 0, modestbranding: 1,
       disablekb: 1, playsinline: 1, iv_load_policy: 3, fs: 0,
-      origin: location.origin || '*'
+      origin: location.origin || '*',
+      // Ad suppression params
+      cc_load_policy: 0, hl: 'en', enablejsapi: 1,
     },
     events: { onStateChange: onStateChange, onReady: onPlayerReady }
   });
@@ -2571,227 +2519,332 @@ function doLoadVideo(videoId) {
   syncSpeedSliderUI(savedRate);
   if (savedRate !== 1) mainPlayer.setPlaybackRate(savedRate);
   syncQualityPillUI(savedQ);
-  showSkipAd();
-}
-
-let skipAdTimer = null;
-function showSkipAd() {
-  const btn = document.getElementById('skip-ad-btn');
-  btn.classList.add('visible');
-  clearTimeout(skipAdTimer);
-  skipAdTimer = setTimeout(() => btn.classList.remove('visible'), 5000);
-}
-function skipAd(e) {
-  e.stopPropagation();
-  if (mainPlayer?.seekTo && mainPlayer?.getDuration) {
-    const dur = mainPlayer.getDuration();
-    if (dur > 0) mainPlayer.seekTo(dur * 0.02); // skip to ~2% past start (past typical YT ads)
-  }
-  document.getElementById('skip-ad-btn').classList.remove('visible');
-  clearTimeout(skipAdTimer);
 }
 
 /* ════════════════════════════════════════
-   ADGUARD-STYLE AD BLOCKER
+   FULL-POWER AD BLOCKER
+   Strategy: network intercept + YT IMA SDK
+   nullification + player-state ad detection
+   + rapid seek-past + DOM nuke + mute guard
 ════════════════════════════════════════ */
+
+const _adBlockState = {
+  domObserver: null,
+  adCheckInterval: null,
+  iframeObserver: null,
+  adMuted: false,
+  lastNotice: 0,
+  adSeekCount: 0,
+  lastAdSeek: 0,
+};
+
+function isAdBlockEnabled() { return settingsState.adBlockEnabled !== false; }
+
 (function initAdBlocker() {
 
-  /* ── 1. Network-level: intercept fetch/XHR for known ad domains ── */
+  /* ══ LAYER 1: Block ad network requests (fetch + XHR) ══ */
   const AD_HOSTS = [
-    'doubleclick.net','googlesyndication.com','googleadservices.com',
-    'ads.youtube.com','pagead2.googlesyndication.com','adservice.google.com',
-    'static.doubleclick.net','cm.g.doubleclick.net','yt3.ggpht.com/ytc/AKedOL',
-    'googleads.g.doubleclick.net','ad.doubleclick.net','securepubads.g.doubleclick.net',
+    'doubleclick.net', 'googlesyndication.com', 'googleadservices.com',
+    'ads.youtube.com', 'pagead2.googlesyndication.com', 'adservice.google.com',
+    'static.doubleclick.net', 'cm.g.doubleclick.net', 'googleads.g.doubleclick.net',
+    'ad.doubleclick.net', 'securepubads.g.doubleclick.net', 'tpc.googlesyndication.com',
+    'imasdk.googleapis.com', 'ad.youtube.com', 'www.googleadservices.com',
+    'fundingchoicesmessages.google.com', 'yt3.ggpht.com/ytc/AKedOL',
+    'youtube.com/pagead', 'youtube.com/api/stats/ads', 'youtube.com/get_video_info?ad',
+    'yt.be/ad', 'yandex.ru/ads', 'criteo.com', 'moatads.com',
   ];
 
   const _origFetch = window.fetch;
   window.fetch = function(input, init) {
+    if (!isAdBlockEnabled()) return _origFetch.apply(this, arguments);
     const url = typeof input === 'string' ? input : (input?.url || '');
     if (AD_HOSTS.some(h => url.includes(h))) {
-      console.debug('[AdBlock] Blocked fetch:', url);
-      return Promise.resolve(new Response('', { status: 200 }));
+      console.debug('[AdBlock] ✗ fetch blocked:', url.slice(0, 80));
+      return Promise.resolve(new Response('{"adBreaks":[],"adPlacements":[],"playerAds":[]}',
+        { status: 200, headers: { 'Content-Type': 'application/json' } }));
     }
     return _origFetch.apply(this, arguments);
   };
 
   const _origXHROpen = XMLHttpRequest.prototype.open;
+  const _origXHRSend = XMLHttpRequest.prototype.send;
   XMLHttpRequest.prototype.open = function(method, url) {
-    if (typeof url === 'string' && AD_HOSTS.some(h => url.includes(h))) {
-      console.debug('[AdBlock] Blocked XHR:', url);
-      this._adBlocked = true;
-    }
+    this._adBlocked = isAdBlockEnabled() && typeof url === 'string' && AD_HOSTS.some(h => url.includes(h));
+    if (this._adBlocked) console.debug('[AdBlock] ✗ XHR blocked:', url.slice(0, 80));
     return _origXHROpen.apply(this, arguments);
   };
-  const _origXHRSend = XMLHttpRequest.prototype.send;
   XMLHttpRequest.prototype.send = function() {
     if (this._adBlocked) return;
     return _origXHRSend.apply(this, arguments);
   };
 
-  /* ── 2. DOM-level: hide ad overlay elements via MutationObserver ── */
+  /* ══ LAYER 2: Nullify YT IMA SDK before it loads ══ */
+  // YouTube uses google.ima SDK inside the iframe for ad scheduling.
+  // Defining a stub window.google.ima prevents it from initializing.
+  try {
+    const imaStub = {
+      AdDisplayContainer: function() { return { initialize(){}, destroy(){} }; },
+      AdError: { Type: {}, ErrorCode: {} },
+      AdErrorEvent: { Type: {} },
+      AdEvent: { Type: {
+        CONTENT_PAUSE_REQUESTED: 'contentPauseRequested',
+        CONTENT_RESUME_REQUESTED: 'contentResumeRequested',
+        LOADED: 'loaded', STARTED: 'started', COMPLETE: 'complete',
+        ALL_ADS_COMPLETED: 'allAdsCompleted', SKIPPED: 'skipped',
+      }},
+      AdsLoader: function() { return {
+        addEventListener(){}, removeEventListener(){},
+        requestAds(req) { try { req._resolve?.(); } catch(e){} },
+        contentComplete(){}, destroy(){},
+      }; },
+      AdsManager: function() { return {
+        init(){}, start(){}, destroy(){}, stop(){},
+        addEventListener(){}, removeEventListener(){},
+        getCuePoints(){ return []; },
+        getVolume(){ return 1; }, setVolume(){},
+      }; },
+      AdsManagerLoadedEvent: { Type: { ADS_MANAGER_LOADED: 'adsManagerLoaded' } },
+      AdsRenderingSettings: function() {},
+      AdsRequest: function() {},
+      settings: { setLocale(){}, setNumRedirects(){}, setPlayerType(){}, setPlayerVersion(){} },
+      VERSION: '3.999.0',
+    };
+    if (!window.google) window.google = {};
+    if (!window.google.ima) window.google.ima = imaStub;
+  } catch(e) {}
+
+  /* ══ LAYER 3: Nuke ad DOM elements ══ */
   const AD_SELECTORS = [
-    '.ytp-ad-overlay-container','.ytp-ad-text-overlay','.ytp-ad-image-overlay',
-    '.ytp-ad-player-overlay','.ytp-ad-player-overlay-instream-info',
-    '.ytp-ad-preview-container','.ytp-ad-skip-button-container',
-    'div[id^="google_ads_"]','ins.adsbygoogle','.ad-container','#ad-container',
-    '[class*="ad-banner"]','[id*="ad-banner"]',
+    // In-stream overlays
+    '.ytp-ad-overlay-container', '.ytp-ad-text-overlay', '.ytp-ad-image-overlay',
+    '.ytp-ad-player-overlay', '.ytp-ad-player-overlay-instream-info',
+    '.ytp-ad-preview-container', '.ytp-ad-skip-button-container',
+    // Ad UI chrome
+    '.ytp-ad-module', '.ytp-ad-message-container', '.ytp-ad-action-interstitial',
+    '.ytp-ad-progress', '.ytp-ad-progress-list', '.ytp-ad-simple-ad-badge',
+    '.ytp-ad-duration-remaining', '.ytp-ad-visit-advertiser-button',
+    '.ytp-ad-button-icon', '.ytp-ad-button', '.ytp-ad-preview-text',
+    '.ytp-ad-skip-button-modern', '.ytp-ad-overlay-close-button',
+    // Page-level YT ad elements
+    '.ytp-suggested-action', 'ytd-action-companion-ad-renderer',
+    'ytd-banner-promo-renderer', 'ytd-statement-banner-renderer',
+    'ytd-promoted-sparkles-web-renderer', 'ytd-promoted-video-renderer',
+    'ytd-display-ad-renderer', 'ytd-companion-slot-renderer',
+    '#player-ads', '#masthead-ad', '.ytd-video-masthead-ad-v3-renderer',
+    // Generic
+    'div[id^="google_ads_"]', 'ins.adsbygoogle',
+    '[class*="ad-banner"]', '[id*="ad-banner"]',
   ];
 
-  function hideAdElements(root) {
+  function nukeAdDOM(root) {
+    if (!isAdBlockEnabled() || !root) return;
     AD_SELECTORS.forEach(sel => {
-      root.querySelectorAll(sel).forEach(el => {
-        el.style.cssText = 'display:none!important;opacity:0!important;pointer-events:none!important;';
-      });
+      try {
+        root.querySelectorAll(sel).forEach(el => {
+          el.style.cssText = 'display:none!important;visibility:hidden!important;opacity:0!important;pointer-events:none!important;height:0!important;width:0!important;';
+        });
+      } catch(e) {}
     });
   }
 
-  const domObserver = new MutationObserver(() => hideAdElements(document));
-  domObserver.observe(document.body, { childList: true, subtree: true, attributes: true });
-  hideAdElements(document);
+  /* Observe the main document */
+  _adBlockState.domObserver = new MutationObserver(() => { if (isAdBlockEnabled()) nukeAdDOM(document); });
+  _adBlockState.domObserver.observe(document.documentElement, { childList: true, subtree: true });
+  nukeAdDOM(document);
 
-  /* ── 3. Try to access YouTube iframe internals and dismiss ads ── */
-  function tryBlockIframeAds() {
-    const iframe = document.querySelector('#youtube-engine iframe, #youtube-engine');
+  /* Also observe inside the YT iframe once it's accessible */
+  function hookIframeDOM() {
+    const iframe = document.getElementById('youtube-engine');
     if (!iframe) return;
-    let iframeDoc = null;
-    try { iframeDoc = iframe.contentDocument || iframe.contentWindow?.document; } catch(e) {}
-    if (!iframeDoc) return; // cross-origin — handled by player-state polling below
-
-    hideAdElements(iframeDoc);
-
-    // Auto-click "Skip Ad" button inside the iframe
-    const skipBtn = iframeDoc.querySelector('.ytp-skip-ad-button, .ytp-ad-skip-button');
-    if (skipBtn) { skipBtn.click(); console.debug('[AdBlock] Clicked iframe skip button'); }
-
-    // Hide ad badge
-    const adBadge = iframeDoc.querySelector('.ytp-ad-simple-ad-badge, .ytp-ad-duration-remaining');
-    if (adBadge) adBadge.style.display = 'none';
+    let iDoc;
+    try { iDoc = iframe.contentDocument || iframe.contentWindow?.document; } catch(e) { return; }
+    if (!iDoc || iDoc._abHooked) return;
+    iDoc._abHooked = true;
+    nukeAdDOM(iDoc);
+    if (_adBlockState.iframeObserver) _adBlockState.iframeObserver.disconnect();
+    _adBlockState.iframeObserver = new MutationObserver(() => { if (isAdBlockEnabled()) nukeAdDOM(iDoc); });
+    try { _adBlockState.iframeObserver.observe(iDoc.documentElement, { childList: true, subtree: true }); } catch(e) {}
   }
 
-  /* ── 4. Player-state polling: detect & auto-skip ads via YT API ── */
-  let _adCheckInterval = null;
-  let _adMuted         = false;
-  let _lastAdNotice    = 0;
-
-  function startAdWatcher() {
-    if (_adCheckInterval) return;
-    _adCheckInterval = setInterval(() => {
-      if (!mainPlayer || typeof mainPlayer.getPlayerState !== 'function') return;
-
-      tryBlockIframeAds();
-
-      // getAdState returns 0 when no ad is playing (YT internal)
-      let adPlaying = false;
+  /* ══ LAYER 4: Auto-click all skip buttons every 300ms ══ */
+  function aggressiveSkip() {
+    if (!isAdBlockEnabled()) return;
+    const iframe = document.getElementById('youtube-engine');
+    let iDoc;
+    try { iDoc = iframe?.contentDocument || iframe?.contentWindow?.document; } catch(e) {}
+    const root = iDoc || document;
+    const SKIP_SELECTORS = [
+      '.ytp-skip-ad-button', '.ytp-ad-skip-button',
+      '.ytp-ad-skip-button-modern', '.ytp-ad-skip-button-slot',
+      'button[class*="skip"]',
+    ];
+    SKIP_SELECTORS.forEach(sel => {
       try {
-        // Check via internal API if accessible
-        const playerData = mainPlayer.getVideoData?.();
-        if (playerData && playerData.isAd) adPlaying = true;
+        root.querySelectorAll(sel).forEach(btn => {
+          if (btn.offsetParent !== null || btn.style.display !== 'none') {
+            btn.click();
+            console.debug('[AdBlock] ✓ Skip button clicked');
+          }
+        });
       } catch(e) {}
+    });
+  }
 
-      // Fallback: check duration anomalies — ads are typically very short
-      // and the player state is PLAYING while mainPlayer has a short duration
-      try {
-        const dur   = mainPlayer.getDuration?.() || 0;
-        const state = mainPlayer.getPlayerState?.();
-        const isPlaying = state === 1; // YT.PlayerState.PLAYING
+  /* ══ LAYER 5: Player-state ad detection + seek-past strategy ══ */
+  function detectAndKillAd() {
+    if (!mainPlayer || !isAdBlockEnabled()) return;
 
-        if (isPlaying && dur > 0 && dur < 35 && currentVideoId) {
-          // Likely an ad (real lecture videos won't be <35s)
-          adPlaying = true;
-        }
-      } catch(e) {}
+    let adPlaying = false;
 
-      if (adPlaying) {
-        const now = Date.now();
-        if (now - _lastAdNotice > 4000) {
-          _lastAdNotice = now;
-          showAdBlockNotice();
-        }
-        // Mute audio during ad
-        if (!_adMuted) {
-          try { mainPlayer.mute?.(); _adMuted = true; } catch(e) {}
-        }
-        // Try skipping: seek past the ad
+    // Method A: YT IFrame API getVideoData — isAd flag
+    try {
+      const d = mainPlayer.getVideoData?.();
+      if (d && (d.isAd === true || (currentVideoId && d.video_id && d.video_id !== currentVideoId))) {
+        adPlaying = true;
+      }
+    } catch(e) {}
+
+    // Method B: Duration heuristic — playing video under 35s with a loaded video = ad
+    try {
+      const dur   = mainPlayer.getDuration?.() || 0;
+      const state = mainPlayer.getPlayerState?.();
+      if ((state === 1 || state === 3) && dur > 0 && dur < 35 && currentVideoId) adPlaying = true;
+    } catch(e) {}
+
+    // Method C: Check iframe DOM for ad overlay elements
+    try {
+      const iframe = document.getElementById('youtube-engine');
+      const iDoc   = iframe?.contentDocument || iframe?.contentWindow?.document;
+      if (iDoc) {
+        const adEl = iDoc.querySelector('.ytp-ad-player-overlay,.ytp-ad-module,.ytp-ad-progress-list');
+        if (adEl && adEl.offsetParent !== null) adPlaying = true;
+      }
+    } catch(e) {}
+
+    if (adPlaying) {
+      aggressiveSkip();
+      hookIframeDOM();
+
+      // Mute during ad
+      if (!_adBlockState.adMuted) {
+        try { mainPlayer.mute?.(); _adBlockState.adMuted = true; } catch(e) {}
+      }
+
+      // Seek to end of ad (capped to prevent infinite loops)
+      const now = Date.now();
+      if (now - _adBlockState.lastAdSeek > 800) {
+        _adBlockState.lastAdSeek = now;
+        _adBlockState.adSeekCount++;
         try {
           const dur = mainPlayer.getDuration?.() || 0;
-          if (dur > 0) { mainPlayer.seekTo?.(dur); }
+          if (dur > 0) mainPlayer.seekTo?.(dur, true);
         } catch(e) {}
-      } else {
-        // Un-mute if we muted for an ad
-        if (_adMuted) {
-          try { mainPlayer.unMute?.(); _adMuted = false; } catch(e) {}
-        }
       }
-    }, 800);
+
+      // Show notice
+      if (now - _adBlockState.lastNotice > 4000) {
+        _adBlockState.lastNotice = now;
+        showAdBlockNotice();
+      }
+
+    } else {
+      // Ad ended — restore
+      if (_adBlockState.adMuted) {
+        try { mainPlayer.unMute?.(); _adBlockState.adMuted = false; } catch(e) {}
+      }
+      _adBlockState.adSeekCount = 0;
+    }
   }
 
-  function stopAdWatcher() {
-    clearInterval(_adCheckInterval);
-    _adCheckInterval = null;
+  function startAdWatcher() {
+    if (_adBlockState.adCheckInterval) return;
+    _adBlockState.adCheckInterval = setInterval(() => {
+      if (!isAdBlockEnabled()) {
+        if (_adBlockState.adMuted) { try { mainPlayer?.unMute?.(); } catch(e) {} _adBlockState.adMuted = false; }
+        return;
+      }
+      aggressiveSkip();
+      hookIframeDOM();
+      detectAndKillAd();
+    }, 300);
+    console.debug('[AdBlock] Watcher started');
   }
 
-  /* ── 5. Ad-blocked notice toast ── */
+  /* ══ LAYER 6: Ad notice toast ══ */
   function showAdBlockNotice() {
+    if (!isAdBlockEnabled()) return;
     let notice = document.getElementById('adblock-notice');
     if (!notice) {
       notice = document.createElement('div');
       notice.id = 'adblock-notice';
-      notice.style.cssText = `
-        position:absolute;top:14px;left:50%;transform:translateX(-50%);
-        background:rgba(0,0,0,0.82);border:1px solid rgba(255,255,255,0.12);
-        color:#fff;font-size:0.72rem;font-weight:600;letter-spacing:0.03em;
-        padding:6px 14px;border-radius:20px;z-index:9999;
-        display:flex;align-items:center;gap:7px;
-        backdrop-filter:blur(8px);pointer-events:none;
-        animation:adblock-fade 3s forwards;
-      `;
-      notice.innerHTML = `
-        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#4ade80" stroke-width="2.5" stroke-linecap="round">
-          <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
-        </svg>
-        Ad blocked`;
+      Object.assign(notice.style, {
+        position: 'absolute', top: '14px', left: '50%',
+        transform: 'translateX(-50%)',
+        background: 'rgba(10,12,24,0.88)',
+        border: '1px solid rgba(74,222,128,0.35)',
+        color: '#fff', fontSize: '0.72rem', fontWeight: '700',
+        letterSpacing: '0.04em', padding: '6px 14px',
+        borderRadius: '20px', zIndex: '9999',
+        display: 'flex', alignItems: 'center', gap: '7px',
+        backdropFilter: 'blur(10px)', pointerEvents: 'none',
+      });
+      notice.innerHTML = `<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#4ade80" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg><span style="color:#4ade80">Ad killed</span>`;
       const card = document.getElementById('videoPlayerCard');
       if (card) card.appendChild(notice);
     }
-    // Re-trigger animation
     notice.style.animation = 'none';
     void notice.offsetWidth;
-    notice.style.animation = 'adblock-fade 3s forwards';
+    notice.style.animation = 'adblock-fade 2.5s ease forwards';
   }
 
-  /* ── 6. Inject keyframe animation for the notice ── */
-  const style = document.createElement('style');
-  style.textContent = `
+  /* ══ Keyframes ══ */
+  const abStyle = document.createElement('style');
+  abStyle.textContent = `
     @keyframes adblock-fade {
-      0%   { opacity:0; transform:translateX(-50%) translateY(-4px); }
-      10%  { opacity:1; transform:translateX(-50%) translateY(0); }
-      75%  { opacity:1; }
-      100% { opacity:0; }
+      0%   { opacity:0; transform:translateX(-50%) translateY(-6px) scale(.95); }
+      12%  { opacity:1; transform:translateX(-50%) translateY(0) scale(1); }
+      72%  { opacity:1; }
+      100% { opacity:0; transform:translateX(-50%) translateY(-3px); }
     }
-    #adblock-notice { animation: adblock-fade 3s forwards; }
   `;
-  document.head.appendChild(style);
+  document.head.appendChild(abStyle);
 
-  /* ── 7. Wire ad watcher to player lifecycle ── */
-  // Patch doLoadVideo to start watcher when a video loads
-  const _origDoLoadVideo = window.doLoadVideo;
-  // We'll hook it via a polling check since doLoadVideo is defined later
-  let _hookInterval = setInterval(() => {
+  /* ══ Wire to player lifecycle ══ */
+  // Hook doLoadVideo once it's defined
+  const _hookInterval = setInterval(() => {
     if (typeof doLoadVideo === 'function') {
       clearInterval(_hookInterval);
       const _orig = doLoadVideo;
       window.doLoadVideo = function() {
+        const r = _orig.apply(this, arguments);
         startAdWatcher();
-        return _orig.apply(this, arguments);
+        // Reset seek guard per video load
+        _adBlockState.adSeekCount = 0;
+        _adBlockState.lastAdSeek  = 0;
+        return r;
       };
     }
-  }, 100);
+  }, 80);
 
-  // Also start when page loads (catches any pre-existing player state)
-  window.addEventListener('load', () => setTimeout(startAdWatcher, 1500));
+  window.addEventListener('load', () => setTimeout(startAdWatcher, 800));
+  console.log('%c[Eduyomi AdBlock] 🛡️ Full-power active — 5 layers', 'color:#4ade80;font-weight:bold;font-size:13px;');
 
-  console.log('%c[Eduyomi AdBlock] Active — ads blocked 🛡️', 'color:#4ade80;font-weight:bold;');
 })();
+
+function toggleAdBlock(enabled) {
+  settingsState.adBlockEnabled = enabled;
+  saveSettings();
+  if (enabled) {
+    console.log('%c[AdBlock] Enabled ✓', 'color:#4ade80;font-weight:bold;');
+  } else {
+    // Restore any hidden elements
+    document.querySelectorAll('[style*="display:none!important"]').forEach(el => el.style.cssText = '');
+    const notice = document.getElementById('adblock-notice');
+    if (notice) notice.remove();
+    if (_adBlockState.adMuted) { try { mainPlayer?.unMute?.(); } catch(e) {} _adBlockState.adMuted = false; }
+    console.log('%c[AdBlock] Disabled', 'color:#f87171;font-weight:bold;');
+  }
+}
 
 function openVideoOnYT(e) {
   e.preventDefault();
@@ -3010,6 +3063,8 @@ function toggleSettingAutoMarkWatched(val) {
 function applySettingsUI() {
   const wbChk = document.getElementById('stgl-watchbookmark');
   if (wbChk) wbChk.checked = settingsState.showWatchBookmark;
+  const abChk = document.getElementById('stgl-adblock');
+  if (abChk) abChk.checked = settingsState.adBlockEnabled !== false;
   const amChk = document.getElementById('stgl-automarkwatched');
   if (amChk) amChk.checked = settingsState.autoMarkWatched;
   const amRow = document.getElementById('settings-row-automarkwatched');
@@ -3019,10 +3074,6 @@ function applySettingsUI() {
   if (evRow) evRow.classList.toggle('checked', settingsState.expandView);
   syncSpeedSliderUI(parseFloat(settingsState.playerSpeed || '1'));
   syncQualityPillUI(settingsState.playerQuality || 'auto');
-  // Download
-  const dlChk = document.getElementById('stgl-showdownload');
-  if (dlChk) dlChk.checked = settingsState.showDownload;
-  applyDownloadSettingsUI();
   updateVideoActionBtns();
 }
 function toggleFpExpandView(rowEl) {
@@ -3031,44 +3082,6 @@ function toggleFpExpandView(rowEl) {
   rowEl.classList.toggle('checked', settingsState.expandView);
   if (currentSubjectData) renderSubjectView();
 }
-
-function toggleSettingShowDownload(val) {
-  settingsState.showDownload = val;
-  saveSettings();
-  applyDownloadSettingsUI();
-  updateVideoActionBtns();
-}
-
-function setDlPlatform(p) {
-  settingsState.dlPlatform = p;
-  saveSettings();
-  applyDownloadSettingsUI();
-}
-
-function applyDownloadSettingsUI() {
-  const on = settingsState.showDownload;
-  const plat = settingsState.dlPlatform || 'android';
-  const platRow = document.getElementById('settings-dl-platform-row');
-  const andRow  = document.getElementById('settings-dl-android-row');
-  const winRow  = document.getElementById('settings-dl-windows-row');
-  const platAndBtn = document.getElementById('dl-plat-android');
-  const platWinBtn = document.getElementById('dl-plat-windows');
-  if (platRow) platRow.style.display = on ? '' : 'none';
-  if (andRow)  andRow.style.display  = (on && plat === 'android') ? '' : 'none';
-  if (winRow)  winRow.style.display  = (on && plat === 'windows') ? '' : 'none';
-  // Highlight active platform button
-  if (platAndBtn) platAndBtn.className = 'brm-btn ' + (plat === 'android' ? 'brm-btn-backup' : 'brm-btn-restore');
-  if (platWinBtn) platWinBtn.className = 'brm-btn ' + (plat === 'windows' ? 'brm-btn-backup' : 'brm-btn-restore');
-  // Sync input values
-  const ytdlnisInp = document.getElementById('ytdlnis-url-input');
-  if (ytdlnisInp) ytdlnisInp.value = settingsState.ytdlnisUrl || '';
-  const ytdlpInp = document.getElementById('ytdlp-path-input');
-  if (ytdlpInp) ytdlpInp.value = settingsState.ytdlpEnginePath || '';
-  // Update download button in player
-  const dlBtn = document.getElementById('vid-dl-btn');
-  if (dlBtn) dlBtn.style.display = on ? '' : 'none';
-}
-
 function formatTime(s) {
   if (isNaN(s)) return '0:00';
   const h = Math.floor(s/3600), m = Math.floor((s%3600)/60), sec = Math.floor(s%60);
@@ -3162,175 +3175,6 @@ function closeAllCtrlPanels() {
   document.querySelectorAll('.ctrl-icon-btn').forEach(b => b.classList.remove('panel-open'));
   selectOpen = false;
 }
-
-/* ════════════════════════════════════════
-   DOWNLOAD SYSTEM
-   Multi-API chain — no page redirects
-   Priority: yt-dlp API → y2api → ndown → loader.to embed
-════════════════════════════════════════ */
-const DL_FORMATS = [
-  { badge:'720p',  label:'HD',        sub:'1280×720 · MP4',     itag:'22',  quality:'18' },
-  { badge:'360p',  label:'Standard',  sub:'640×360 · MP4',      itag:'18',  quality:'18' },
-  { badge:'Audio', label:'Audio only',sub:'Best quality · MP3',  itag:'140', quality:'audio' },
-];
-
-function openDlPopup() {
-  if (!currentVideoId) return;
-  const plat = settingsState.dlPlatform || 'android';
-  if (plat === 'android') {
-    const ytUrl = 'https://www.youtube.com/watch?v=' + currentVideoId;
-    const base  = (settingsState.ytdlnisUrl || '').trim();
-    // Use custom base URL if set, otherwise use ytdlnis:// scheme directly
-    const deepLink = base
-      ? base + encodeURIComponent(ytUrl)
-      : 'ytdlnis://download?url=' + encodeURIComponent(ytUrl);
-    window.location.href = deepLink;
-  } else {
-    // Windows — open the bottom sheet popup
-    buildDlPopup();
-    const ov = document.getElementById('dlPopupOverlay');
-    ov.classList.add('active');
-    requestAnimationFrame(() => requestAnimationFrame(() => ov.classList.add('visible')));
-  }
-}
-
-function closeDlPopup() {
-  const ov = document.getElementById('dlPopupOverlay');
-  ov.classList.remove('visible');
-  setTimeout(() => ov.classList.remove('active'), 300);
-}
-
-function buildDlPopup() {
-  if (!currentVideoId) return;
-
-  const titleEl = document.getElementById('dl-video-title');
-  if (titleEl) titleEl.textContent = currentVideoTitle || 'This video';
-
-  const rows = document.getElementById('dl-rows');
-  if (!rows) return;
-  rows.innerHTML = DL_FORMATS.map((f, i) => `
-    <div class="lp-item" id="dl-row-${i}" onclick="startBrowserDownload(${i})" style="cursor:pointer;">
-      <span class="lp-item-num dl-row-badge" id="dl-row-badge-${i}" style="width:auto;padding:3px 8px;border-radius:7px;background:color-mix(in srgb,var(--accent) 16%,transparent);color:var(--accent);border:1px solid color-mix(in srgb,var(--accent) 30%,transparent);font-size:.68rem;font-weight:800;">${f.badge}</span>
-      <div class="lp-item-text" style="white-space:normal;">
-        <div style="font-size:.82rem;font-weight:600;color:var(--text-primary);">${f.label}</div>
-        <div style="font-size:.68rem;color:var(--text-muted);margin-top:1px;">${f.sub}</div>
-      </div>
-      <div class="dl-row-action" id="dl-row-action-${i}">
-        <svg viewBox="0 0 24 24" style="width:16px;height:16px;stroke:var(--text-muted);fill:none;stroke-width:2;stroke-linecap:round;"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-      </div>
-    </div>
-  `).join('');
-
-  setDlStatus('hidden');
-}
-
-async function startBrowserDownload(idx) {
-  if (!currentVideoId) return;
-  const fmt = DL_FORMATS[idx];
-  const ytUrl = 'https://www.youtube.com/watch?v=' + currentVideoId;
-  const safeTitle = (currentVideoTitle || currentVideoId).replace(/[^\w\s-]/g, '').trim().slice(0, 80);
-  const filename  = safeTitle + (fmt.quality === 'audio' ? '.mp3' : '.mp4');
-
-  // Reset all rows
-  document.querySelectorAll('[id^="dl-row-"]').forEach(r => {
-    if (!r.id.startsWith('dl-row-action-') && !r.id.startsWith('dl-row-badge-'))
-      r.classList.remove('dl-row-active', 'dl-row-loading');
-  });
-  document.querySelectorAll('[id^="dl-row-action-"]').forEach(a => {
-    a.innerHTML = '<svg viewBox="0 0 24 24" style="width:16px;height:16px;stroke:var(--text-muted);fill:none;stroke-width:2;stroke-linecap:round;"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>';
-  });
-  const activeRow    = document.getElementById('dl-row-' + idx);
-  const activeAction = document.getElementById('dl-row-action-' + idx);
-  if (activeRow)    activeRow.classList.add('dl-row-loading', 'dl-row-active');
-  if (activeAction) activeAction.innerHTML = '<div class="dl-spinner"></div>';
-
-  setDlStatus('loading', 'Preparing download command…');
-
-  // Build yt-dlp command using configured engine path or default
-  const enginePath = (settingsState.ytdlpEnginePath || '').trim()
-    || '%USERPROFILE%\\Downloads\\yt-dlp.exe';
-
-  const formatArg = fmt.quality === 'audio'
-    ? 'bestaudio/best'
-    : `bestvideo[height<=${fmt.badge.replace('p','')}]+bestaudio/best[height<=${fmt.badge.replace('p','')}]`;
-
-  const outputPath = `%USERPROFILE%\\Downloads\\%(title)s.%(ext)s`;
-
-  // Build the full command
-  const cmd = `"${enginePath}" -f "${formatArg}" --merge-output-format mp4 -o "${outputPath}" "${ytUrl}"`;
-
-  // Auto-copy command to clipboard then try Windows Terminal URI
-  const cmdSafe = cmd.replace(/\\/g, '\\\\').replace(/'/g, "\\'");
-  try { await navigator.clipboard.writeText(cmd); } catch(e) {}
-
-  // Try Windows Terminal URI (wt://) — works on Windows 11/10 with Windows Terminal installed
-  const wtUri = `wt:new-tab cmd /k ${encodeURIComponent(cmd)}`;
-  const linkEl = document.createElement('a');
-  linkEl.href = wtUri; linkEl.style.display = 'none';
-  document.body.appendChild(linkEl);
-  try { linkEl.click(); } catch(e) {}
-  setTimeout(() => { try { document.body.removeChild(linkEl); } catch(e) {} }, 500);
-
-  // Always show the command box (terminal may not open silently)
-  const statusEl = document.getElementById('dl-status');
-  if (statusEl) {
-    statusEl.style.display = 'block';
-    statusEl.className = 'dl-status dl-status-ok';
-    statusEl.innerHTML = `
-      <div style="width:100%">
-        <div style="font-size:.75rem;font-weight:700;color:#4ade80;margin-bottom:6px;">✓ Command copied to clipboard! Paste in CMD or PowerShell:</div>
-        <div style="background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:8px 10px;font-family:monospace;font-size:.65rem;word-break:break-all;color:var(--accent);user-select:all;">${cmd}</div>
-        <button onclick="navigator.clipboard.writeText(this.dataset.cmd);this.textContent='✓ Copied!';setTimeout(()=>this.textContent='Copy Command',2000)" data-cmd="${cmdSafe}" style="margin-top:8px;width:100%;height:32px;border-radius:8px;background:var(--accent);border:none;color:#fff;font-weight:700;font-size:.75rem;cursor:pointer;">Copy Command</button>
-      </div>`;
-  }
-  resetDlRow(activeRow);
-}
-
-
-
-function triggerDownload(url, filename) {
-  const a = document.createElement('a');
-  a.href     = url;
-  a.download = filename;
-  a.target   = '_blank';
-  a.rel      = 'noopener';
-  document.body.appendChild(a);
-  a.click();
-  setTimeout(() => a.remove(), 500);
-}
-
-function resetDlRow(rowEl) {
-  if (!rowEl) return;
-  const idx = rowEl.id.replace('dl-row-', '');
-  const actionEl = document.getElementById('dl-row-action-' + idx);
-  setTimeout(() => {
-    rowEl.classList.remove('dl-row-loading', 'dl-row-active');
-    if (actionEl) actionEl.innerHTML =
-      '<svg viewBox="0 0 24 24" style="width:16px;height:16px;stroke:var(--text-muted);fill:none;stroke-width:2;stroke-linecap:round;"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>';
-  }, 1800);
-}
-
-function setDlStatus(type, msg) {
-  const el = document.getElementById('dl-status');
-  if (!el) return;
-  if (type === 'hidden') { el.style.display = 'none'; return; }
-  el.style.display = 'flex';
-  el.className = 'dl-status';
-
-  if (type === 'loading') {
-    el.classList.add('dl-status-loading');
-    el.innerHTML = `<div class="dl-spinner"></div><span>${msg}</span>`;
-  } else if (type === 'ok') {
-    el.classList.add('dl-status-ok');
-    el.innerHTML = `<svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg><span>${msg}</span>`;
-    setTimeout(() => { el.style.display = 'none'; }, 4000);
-  } else if (type === 'err') {
-    el.classList.add('dl-status-err');
-    el.innerHTML = `<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg><span>${msg}</span>`;
-    setTimeout(() => { el.style.display = 'none'; }, 5000);
-  }
-}
-
 function onSpeedSlider(el) {
   const rate = parseFloat((el.value / 100).toFixed(2));
   const label = (rate === Math.round(rate) ? rate : rate) + '×';
@@ -3673,6 +3517,18 @@ setTimeout(applySettingsUI, 0);
       <svg viewBox="0 0 24 24" style="width:18px;height:18px;stroke:var(--text-muted);fill:none;stroke-width:2;stroke-linecap:round;"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
     </div>
 
+    <div class="settings-section">Ad Blocker</div>
+    <div class="settings-toggle-row">
+      <div>
+        <div class="settings-toggle-label">Block Ads</div>
+        <div class="settings-toggle-sub">Automatically mute, skip, and hide YouTube ads</div>
+      </div>
+      <label class="stgl">
+        <input type="checkbox" id="stgl-adblock" onchange="toggleAdBlock(this.checked)">
+        <span class="stgl-track"></span>
+      </label>
+    </div>
+
     <div class="settings-section">Features</div>
     <div class="settings-toggle-row">
       <div>
@@ -3693,67 +3549,6 @@ setTimeout(applySettingsUI, 0);
         <input type="checkbox" id="stgl-automarkwatched" onchange="toggleSettingAutoMarkWatched(this.checked)">
         <span class="stgl-track"></span>
       </label>
-    </div>
-
-    <div class="settings-section">Download</div>
-
-    <!-- Show download toggle -->
-    <div class="settings-toggle-row">
-      <div>
-        <div class="settings-toggle-label">Show Download Button</div>
-        <div class="settings-toggle-sub">Show download icon in the video player bar</div>
-      </div>
-      <label class="stgl">
-        <input type="checkbox" id="stgl-showdownload" onchange="toggleSettingShowDownload(this.checked)">
-        <span class="stgl-track"></span>
-      </label>
-    </div>
-
-    <!-- Platform selector — shown only when download is enabled -->
-    <div id="settings-dl-platform-row" class="settings-toggle-row" style="flex-direction:column;align-items:flex-start;gap:10px;">
-      <div>
-        <div class="settings-toggle-label">Platform</div>
-        <div class="settings-toggle-sub">Choose how downloads are handled</div>
-      </div>
-      <div style="display:flex;gap:8px;width:100%;">
-        <button id="dl-plat-android" class="brm-btn" style="flex:1;height:38px;font-size:.8rem;" onclick="setDlPlatform('android')">
-          📱 Android
-        </button>
-        <button id="dl-plat-windows" class="brm-btn" style="flex:1;height:38px;font-size:.8rem;" onclick="setDlPlatform('windows')">
-          🖥 Windows
-        </button>
-      </div>
-    </div>
-
-    <!-- Android: YTDLnis setup link -->
-    <div id="settings-dl-android-row" class="settings-toggle-row" style="flex-direction:column;align-items:flex-start;gap:8px;">
-      <div>
-        <div class="settings-toggle-label" style="font-size:.84rem;">YTDLnis Setup Link</div>
-        <div class="settings-toggle-sub">Base URL for YTDLnis deep link (leave blank for default)</div>
-      </div>
-      <div style="display:flex;gap:8px;width:100%;">
-        <input id="ytdlnis-url-input" type="text" placeholder="e.g. ytdlnis://download?url="
-          style="flex:1;height:38px;background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:0 12px;color:var(--text-primary);font-size:.8rem;font-family:var(--font-body);outline:none;"
-          oninput="settingsState.ytdlnisUrl=this.value;saveSettings()">
-        <button class="brm-btn brm-btn-restore" style="height:38px;flex:0 0 auto;padding:0 14px;font-size:.8rem;" onclick="settingsState.ytdlnisUrl='';document.getElementById('ytdlnis-url-input').value='';saveSettings()">Reset</button>
-      </div>
-    </div>
-
-    <!-- Windows: yt-dlp engine path -->
-    <div id="settings-dl-windows-row" class="settings-toggle-row" style="flex-direction:column;align-items:flex-start;gap:8px;display:none;">
-      <div>
-        <div class="settings-toggle-label" style="font-size:.84rem;">yt-dlp Engine Path</div>
-        <div class="settings-toggle-sub">Path to yt-dlp.exe in %USERPROFILE%\Downloads</div>
-      </div>
-      <div style="display:flex;gap:8px;width:100%;">
-        <input id="ytdlp-path-input" type="text" placeholder="%USERPROFILE%\Downloads\yt-dlp.exe"
-          style="flex:1;height:38px;background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:0 12px;color:var(--text-primary);font-size:.8rem;font-family:var(--font-body);outline:none;"
-          oninput="settingsState.ytdlpEnginePath=this.value;saveSettings()">
-        <button class="brm-btn brm-btn-restore" style="height:38px;flex:0 0 auto;padding:0 14px;font-size:.8rem;" onclick="settingsState.ytdlpEnginePath='';document.getElementById('ytdlp-path-input').value='';saveSettings()">Reset</button>
-      </div>
-      <div style="font-size:.7rem;color:var(--text-muted);line-height:1.5;">
-        Download <strong>yt-dlp.exe</strong> from <a href="https://github.com/yt-dlp/yt-dlp/releases" target="_blank" style="color:var(--accent)">github.com/yt-dlp/yt-dlp</a> and place it in your Downloads folder.
-      </div>
     </div>
 
   </div>
@@ -3820,31 +3615,6 @@ setTimeout(applySettingsUI, 0);
         <svg viewBox="0 0 24 24"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/><path d="M10 11v6"/><path d="M14 11v6"/><path d="M9 6V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2"/></svg>
         Clear All
       </button>
-    </div>
-  </div>
-</div>
-<!-- DOWNLOAD POPUP (bottom sheet) -->
-<div id="dlPopupOverlay" onclick="if(event.target===this)closeDlPopup()">
-  <div id="dlPopupBox">
-    <div class="dlp-header">
-      <div class="dlp-title-wrap">
-        <div class="dlp-icon">
-          <svg viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-        </div>
-        <div>
-          <div class="dlp-title" id="dl-video-title">Select quality</div>
-          <div class="dlp-subtitle">Download · No app needed</div>
-        </div>
-      </div>
-      <button class="dlp-close" onclick="closeDlPopup()">
-        <svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
-      </button>
-    </div>
-    <div class="dlp-list" id="dl-rows">
-      <!-- filled by buildDlPopup() -->
-    </div>
-    <div class="dlp-footer">
-      <div id="dl-status" class="dl-status" style="display:none"></div>
     </div>
   </div>
 </div>
