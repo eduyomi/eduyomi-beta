@@ -910,6 +910,142 @@ hr.div { border: none; border-top: 1px solid var(--border); margin: 14px 0; }
 .gh-commit-row input { margin-bottom: 0; flex: 1; font-size: 11px; }
 .gh-commit-row .btn { white-space: nowrap; flex-shrink: 0; }
 
+/* ═══ SIDEBAR TAB SWITCHER ═══ */
+.sidebar-tabs {
+  display: flex; border-bottom: 1px solid var(--border); flex-shrink: 0;
+  background: var(--sidebar-bg);
+}
+.sidebar-tab-btn {
+  flex: 1; padding: 8px 4px; font-size: 11px; font-weight: 700;
+  font-family: var(--font-body); letter-spacing: 0.4px; text-transform: uppercase;
+  background: transparent; border: none; color: var(--text-muted); cursor: pointer;
+  border-bottom: 2px solid transparent; transition: color var(--transition), border-color var(--transition);
+  position: relative;
+}
+.sidebar-tab-btn:hover { color: var(--text-secondary); }
+.sidebar-tab-btn.active { color: var(--accent); border-bottom-color: var(--accent); }
+.sidebar-tab-badge {
+  display: inline-flex; align-items: center; justify-content: center;
+  min-width: 16px; height: 16px; padding: 0 4px;
+  background: var(--red); color: #fff; font-size: 9px; font-weight: 800;
+  border-radius: 999px; margin-left: 4px; vertical-align: middle;
+  animation: badgePop .3s cubic-bezier(.34,1.56,.64,1);
+}
+@keyframes badgePop { from{transform:scale(0)} to{transform:scale(1)} }
+
+/* ═══ REQUESTS PANEL ═══ */
+.requests-panel {
+  display: none; flex-direction: column; flex: 1; overflow: hidden;
+}
+.requests-panel.active { display: flex; }
+.requests-header {
+  padding: 8px 10px; border-bottom: 1px solid var(--border); flex-shrink: 0;
+  display: flex; align-items: center; gap: 6px;
+}
+.requests-sheet-url {
+  flex: 1; height: 26px; padding: 0 8px;
+  background: var(--search-bg); border: 1px solid var(--border);
+  border-radius: 6px; color: var(--text-secondary); font-family: var(--font-mono);
+  font-size: 10px; outline: none; transition: border-color var(--transition);
+}
+.requests-sheet-url:focus { border-color: var(--accent); }
+.requests-refresh-btn {
+  display: flex; align-items: center; justify-content: center;
+  width: 26px; height: 26px; border-radius: 6px; flex-shrink: 0;
+  background: var(--surface); border: 1px solid var(--border);
+  color: var(--text-muted); cursor: pointer; font-size: 13px;
+  transition: all var(--transition);
+}
+.requests-refresh-btn:hover { background: var(--surface-hover); color: var(--accent); border-color: var(--accent); }
+.requests-refresh-btn.spinning { animation: spinIcon .6s linear infinite; }
+@keyframes spinIcon { to { transform: rotate(360deg); } }
+.requests-scroll { flex: 1; overflow-y: auto; padding: 8px 8px 16px; }
+.req-empty {
+  text-align: center; padding: 40px 20px; color: var(--text-muted); font-size: 12px;
+}
+.req-empty .req-empty-icon { font-size: 28px; margin-bottom: 8px; }
+.req-group-label {
+  font-size: 10px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase;
+  color: var(--text-muted); padding: 10px 4px 5px; display: flex; align-items: center; gap: 6px;
+}
+.req-group-label::after { content:''; flex:1; height:1px; background:var(--border); }
+.req-card {
+  background: var(--card-bg); border: 1px solid var(--border);
+  border-radius: 12px; padding: 10px 11px; margin-bottom: 7px;
+  transition: border-color var(--transition), background var(--transition);
+  position: relative; overflow: hidden;
+}
+.req-card::before {
+  content: ''; position: absolute; left: 0; top: 0; bottom: 0;
+  width: 3px; border-radius: 3px 0 0 3px;
+}
+.req-card.type-video::before { background: var(--accent); }
+.req-card.type-chapter::before { background: var(--green); }
+.req-card.type-topic::before { background: var(--amber); }
+.req-card:hover { border-color: color-mix(in srgb,var(--accent) 40%,transparent); }
+.req-card.approved {
+  opacity: 0.5; pointer-events: none;
+  background: color-mix(in srgb,var(--green) 5%,transparent);
+  border-color: color-mix(in srgb,var(--green) 20%,transparent);
+}
+.req-card.rejected {
+  opacity: 0.4; pointer-events: none;
+  background: color-mix(in srgb,var(--red) 5%,transparent);
+  border-color: color-mix(in srgb,var(--red) 20%,transparent);
+}
+.req-type-pill {
+  display: inline-flex; align-items: center; gap: 3px;
+  font-size: 9px; font-weight: 700; letter-spacing: 0.8px; text-transform: uppercase;
+  padding: 2px 7px; border-radius: 20px; margin-bottom: 5px;
+}
+.req-type-pill.video { background: color-mix(in srgb,var(--accent) 15%,transparent); color: var(--accent); border: 1px solid color-mix(in srgb,var(--accent) 30%,transparent); }
+.req-type-pill.chapter { background: color-mix(in srgb,var(--green) 12%,transparent); color: var(--green); border: 1px solid color-mix(in srgb,var(--green) 28%,transparent); }
+.req-type-pill.topic { background: color-mix(in srgb,var(--amber) 12%,transparent); color: var(--amber); border: 1px solid color-mix(in srgb,var(--amber) 28%,transparent); }
+.req-title { font-size: 12px; font-weight: 600; color: var(--text-primary); margin-bottom: 3px; line-height: 1.4; }
+.req-meta { font-size: 10px; color: var(--text-muted); margin-bottom: 7px; line-height: 1.5; }
+.req-meta strong { color: var(--text-secondary); }
+.req-url {
+  font-family: var(--font-mono); font-size: 9.5px; color: var(--accent);
+  background: color-mix(in srgb,var(--accent) 8%,transparent);
+  padding: 3px 7px; border-radius: 5px; margin-bottom: 7px;
+  word-break: break-all; display: block;
+}
+.req-actions { display: flex; gap: 5px; }
+.req-btn-approve {
+  flex: 1; padding: 5px 8px; border-radius: 7px; font-size: 11px; font-weight: 600;
+  background: color-mix(in srgb,var(--green) 15%,transparent);
+  color: var(--green); border: 1px solid color-mix(in srgb,var(--green) 30%,transparent);
+  cursor: pointer; font-family: var(--font-body); transition: all var(--transition);
+}
+.req-btn-approve:hover { background: color-mix(in srgb,var(--green) 25%,transparent); }
+.req-btn-reject {
+  padding: 5px 8px; border-radius: 7px; font-size: 11px; font-weight: 600;
+  background: color-mix(in srgb,var(--red) 12%,transparent);
+  color: var(--red); border: 1px solid color-mix(in srgb,var(--red) 28%,transparent);
+  cursor: pointer; font-family: var(--font-body); transition: all var(--transition);
+}
+.req-btn-reject:hover { background: color-mix(in srgb,var(--red) 22%,transparent); }
+.req-status-badge {
+  display: inline-flex; align-items: center; gap: 4px;
+  font-size: 10px; font-weight: 700; padding: 3px 8px; border-radius: 6px;
+}
+.req-status-badge.ok { color: var(--green); background: color-mix(in srgb,var(--green) 12%,transparent); }
+.req-status-badge.err { color: var(--red); background: color-mix(in srgb,var(--red) 12%,transparent); }
+
+/* ═══ APPROVE REVIEW MODAL ═══ */
+#reqApproveModal .modal { width: min(460px, 94vw); gap: 14px; }
+.req-modal-path { font-size: 11px; color: var(--text-muted); font-family: var(--font-mono); background: var(--surface); padding: 6px 10px; border-radius: 8px; margin-bottom: 2px; }
+.req-modal-fields { display: flex; flex-direction: column; gap: 10px; }
+.req-modal-field label { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: .8px; color: var(--text-muted); display: block; margin-bottom: 4px; }
+.req-modal-field input, .req-modal-field select {
+  width: 100%; height: 34px; padding: 0 10px;
+  background: var(--search-bg); border: 1.5px solid var(--border); border-radius: 8px;
+  color: var(--text-primary); font-family: var(--font-body); font-size: 12.5px; outline: none;
+  transition: border-color var(--transition);
+}
+.req-modal-field input:focus, .req-modal-field select:focus { border-color: var(--accent); }
+.req-modal-field select option { background: var(--surface-solid); color: var(--text-primary); }
+
 /* ═══════════════ MOBILE (≤768px) ═══════════════ */
 @media (max-width: 768px) {
   /* ── Header: search expands, logo hidden ── */
@@ -1229,8 +1365,15 @@ hr.div { border: none; border-top: 1px solid var(--border); margin: 14px 0; }
         <span>GitHub Sync</span>
       </div>
       <div class="gh-panel-body" id="ghPanelBody">
-        <!-- URL and token auto-filled from Supabase login — no manual input needed -->
-        <input type="hidden" id="ghFileUrl">
+        <div style="margin-bottom:5px;">
+          <div style="font-size:9px;font-weight:700;letter-spacing:.8px;text-transform:uppercase;color:var(--text-muted);margin-bottom:3px;">GitHub File Path</div>
+          <input type="text" id="ghFileUrl" class="gh-panel-input"
+            style="width:100%;height:28px;padding:0 8px;background:var(--search-bg);border:1px solid var(--border);border-radius:7px;color:var(--text-primary);font-family:var(--font-mono);font-size:10px;outline:none;transition:border-color var(--transition);"
+            placeholder="https://github.com/owner/repo/blob/main/data.json"
+            oninput="ghSaveSettings();ghShowPathPill(this.value,'ghPathPill')"
+            spellcheck="false" autocomplete="off" autocorrect="off" autocapitalize="off">
+          <div id="ghPathPill" style="margin-top:3px;min-height:14px;"></div>
+        </div>
         <input type="hidden" id="ghToken" data-masked="1">
         <div class="gh-row">
           <button class="btn btn-sm" onclick="ghFetch()">⬇ Pull</button>
@@ -1245,44 +1388,80 @@ hr.div { border: none; border-top: 1px solid var(--border); margin: 14px 0; }
       </div>
     </div>
 
-    <!-- Sidebar search + filter -->
-    <div class="sidebar-top">
-      <div class="sidebar-search-wrap">
-        <span class="si">🔍</span>
-        <input type="search" id="sidebarSearch" placeholder="Filter tree…" oninput="filterTree()" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">
-      </div>
-      <div class="sidebar-filter-row">
-        <div class="custom-select-wrap" id="sortSelectWrap">
-          <button class="custom-select-btn" id="sortSelectBtn" onclick="toggleCustomSelect()" aria-haspopup="listbox">
-            <span class="cs-label" id="sortSelectLabel">Original order</span>
-            <span class="cs-arrow">▾</span>
-          </button>
-          <div class="custom-select-dropdown" id="sortSelectDrop" role="listbox">
-            <div class="custom-select-option selected" data-value="natural" onclick="pickSortOption(this)">
-              <span class="cs-check">✓</span>Original order
-            </div>
-            <div class="custom-select-option" data-value="asc" onclick="pickSortOption(this)">
-              <span class="cs-check">✓</span>A → Z (Year)
-            </div>
-            <div class="custom-select-option" data-value="desc" onclick="pickSortOption(this)">
-              <span class="cs-check">✓</span>Z → A (Year)
-            </div>
-            <div class="custom-select-option" data-value="subj-asc" onclick="pickSortOption(this)">
-              <span class="cs-check">✓</span>Subjects A→Z
+    <!-- Sidebar tab switcher -->
+    <div class="sidebar-tabs">
+      <button class="sidebar-tab-btn active" id="sidebarTabTree" onclick="switchSidebarTab('tree')">Tree</button>
+      <button class="sidebar-tab-btn" id="sidebarTabRequests" onclick="switchSidebarTab('requests')">
+        Requests<span class="sidebar-tab-badge" id="reqBadge" style="display:none">0</span>
+      </button>
+    </div>
+
+    <!-- TREE TAB -->
+    <div id="sidebarTreePanel" style="display:flex;flex-direction:column;flex:1;overflow:hidden;">
+      <!-- Sidebar search + filter -->
+      <div class="sidebar-top">
+        <div class="sidebar-search-wrap">
+          <span class="si">🔍</span>
+          <input type="search" id="sidebarSearch" placeholder="Filter tree…" oninput="filterTree()" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">
+        </div>
+        <div class="sidebar-filter-row">
+          <div class="custom-select-wrap" id="sortSelectWrap">
+            <button class="custom-select-btn" id="sortSelectBtn" onclick="toggleCustomSelect()" aria-haspopup="listbox">
+              <span class="cs-label" id="sortSelectLabel">Original order</span>
+              <span class="cs-arrow">▾</span>
+            </button>
+            <div class="custom-select-dropdown" id="sortSelectDrop" role="listbox">
+              <div class="custom-select-option selected" data-value="natural" onclick="pickSortOption(this)">
+                <span class="cs-check">✓</span>Original order
+              </div>
+              <div class="custom-select-option" data-value="asc" onclick="pickSortOption(this)">
+                <span class="cs-check">✓</span>A → Z (Year)
+              </div>
+              <div class="custom-select-option" data-value="desc" onclick="pickSortOption(this)">
+                <span class="cs-check">✓</span>Z → A (Year)
+              </div>
+              <div class="custom-select-option" data-value="subj-asc" onclick="pickSortOption(this)">
+                <span class="cs-check">✓</span>Subjects A→Z
+              </div>
             </div>
           </div>
         </div>
+        <div class="sidebar-filter-row2">
+          <button class="expand-toggle" id="sidebarExpandToggle" onclick="toggleExpandAll(this)" title="Expand/collapse all">
+            <span class="toggle-track"><span class="toggle-thumb"></span></span>
+            <span>Expand All</span>
+          </button>
+        </div>
       </div>
-      <div class="sidebar-filter-row2">
-        <button class="expand-toggle" id="sidebarExpandToggle" onclick="toggleExpandAll(this)" title="Expand/collapse all">
-          <span class="toggle-track"><span class="toggle-thumb"></span></span>
-          <span>Expand All</span>
-        </button>
-      </div>
+
+      <!-- Tree -->
+      <div class="tree-scroll" id="treeScroll"></div>
     </div>
 
-    <!-- Tree -->
-    <div class="tree-scroll" id="treeScroll"></div>
+    <!-- REQUESTS TAB -->
+    <div class="requests-panel" id="sidebarRequestsPanel">
+      <div class="requests-header">
+        <input class="requests-sheet-url" id="reqSheetUrl"
+          placeholder="Google Sheet URL or published CSV link"
+          oninput="reqSaveSheetUrl()" spellcheck="false">
+        <button class="requests-refresh-btn" id="reqRefreshBtn" onclick="reqFetch()" title="Refresh from Sheet">↻</button>
+      </div>
+      <div style="padding:0 10px 6px;display:flex;gap:5px;align-items:center;flex-shrink:0">
+        <button class="btn btn-xs" style="font-size:10px;flex:1;justify-content:center" onclick="reqTogglePaste()">📋 Paste CSV manually</button>
+      </div>
+      <div id="reqPasteArea" style="display:none;padding:0 10px 8px;flex-shrink:0">
+        <textarea id="reqPasteCSV" placeholder="Paste raw CSV here (copy from Google Sheets → File → Download → CSV)…"
+          style="width:100%;height:80px;resize:vertical;background:var(--search-bg);border:1px solid var(--border);border-radius:8px;color:var(--text-primary);font-family:var(--font-mono);font-size:10px;padding:7px 9px;outline:none;line-height:1.5"
+          spellcheck="false"></textarea>
+        <button class="btn btn-sm btn-accent" style="width:100%;justify-content:center;margin-top:5px" onclick="reqLoadPasted()">✓ Load pasted CSV</button>
+      </div>
+      <div class="requests-scroll" id="reqScroll">
+        <div class="req-empty">
+          <div class="req-empty-icon">📋</div>
+          <div>Paste your Google Sheet URL above and click ↻</div>
+        </div>
+      </div>
+    </div>
   </div>
 
   <!-- MAIN EDITOR -->
@@ -1336,6 +1515,24 @@ hr.div { border: none; border-top: 1px solid var(--border); margin: 14px 0; }
   <div class="drop-dismiss" onclick="hideDropOverlay()">✕ Cancel</div>
 </div>
 
+<!-- APPROVE REQUEST MODAL -->
+<div class="modal-backdrop" id="reqApproveModal">
+  <div class="modal">
+    <div class="modal-title">✅ Approve Request</div>
+    <div class="req-modal-path" id="reqModalPath"></div>
+    <div class="req-modal-fields" id="reqModalFields"></div>
+    <div style="margin-top:4px">
+      <label style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.8px;color:var(--text-muted);display:block;margin-bottom:4px">Commit Message</label>
+      <input type="text" id="reqCommitMsg" style="width:100%;height:34px;padding:0 10px;background:var(--search-bg);border:1.5px solid var(--border);border-radius:8px;color:var(--text-primary);font-family:var(--font-mono);font-size:11.5px;outline:none;" spellcheck="false">
+    </div>
+    <div class="modal-row-btns" style="margin-top:6px">
+      <button class="btn" style="flex:1;justify-content:center;" onclick="closeReqModal()">✕ Cancel</button>
+      <button class="btn btn-accent" style="flex:1;justify-content:center;" onclick="reqConfirmApprove()" id="reqConfirmBtn">⬆ Approve &amp; Push</button>
+    </div>
+    <div class="gh-status" id="reqModalStatus" style="margin-top:4px"></div>
+  </div>
+</div>
+
 <script>
 // ─────────────────────── STATE ───────────────────────
 let data = {};
@@ -1376,15 +1573,28 @@ initTheme();
 // ─────────────────────── LOAD ───────────────────────
 function startFresh() { data = {browse_label:'', years:[{year_title:'New Year',subjects:[]}]}; loadedFileName=''; lastExportedName=''; render(); refreshJsonPanel(); toast('Fresh start — Year 1 added','s'); }
 
-function loadFromURL() {
+async function loadFromURL() {
   const url = document.getElementById('urlInput').value.trim();
   if (!url) return toast('Enter a URL','e');
-  fetch(url).then(r => r.json()).then(d => {
-    data=d;
-    // Try to extract file name from URL
-    try { const parts = new URL(url).pathname.split('/'); const last = parts[parts.length-1]; if (last.endsWith('.json')) { loadedFileName = last.replace(/\.json$/i,''); lastExportedName=''; } } catch {}
-    render(); toast('Loaded from URL','s');
-  }).catch(() => toast('Fetch failed','e'));
+  const proxies = [
+    u => u,
+    u => `https://corsproxy.io/?${encodeURIComponent(u)}`,
+    u => `https://api.allorigins.win/raw?url=${encodeURIComponent(u)}`,
+    u => `https://api.codetabs.com/v1/proxy?quest=${encodeURIComponent(u)}`,
+  ];
+  for (const proxy of proxies) {
+    try {
+      const r = await fetch(proxy(url), { signal: AbortSignal.timeout(8000) });
+      if (!r.ok) continue;
+      const text = await r.text();
+      const d = JSON.parse(text);
+      data = d;
+      try { const parts = new URL(url).pathname.split('/'); const last = parts[parts.length-1]; if (last.endsWith('.json')) { loadedFileName = last.replace(/\.json$/i,''); lastExportedName=''; } } catch {}
+      render(); toast('Loaded from URL','s');
+      return;
+    } catch { continue; }
+  }
+  toast('Fetch failed — check the URL or ensure the file is publicly accessible','e');
 }
 function loadFile(e) {
   const f = e.target.files[0]; if (!f) return;
@@ -2758,7 +2968,31 @@ function ghSaveToken() {
 }
 
 function ghSaveSettings() {
-  localStorage.setItem('ej-gh-fileurl', document.getElementById('ghFileUrl').value.trim());
+  const val = document.getElementById('ghFileUrl')?.value.trim() || '';
+  localStorage.setItem('ej-gh-fileurl', val);
+  // Keep mobile field in sync
+  const mob = document.getElementById('mobGhFileUrl');
+  if (mob && mob.value !== val) mob.value = val;
+  ghShowPathPill(val, 'ghPathPill');
+  ghShowPathPill(val, 'mobGhPathPill');
+}
+
+/* Show a small parsed-path chip below the URL input */
+function ghShowPathPill(url, pillId) {
+  const el = document.getElementById(pillId);
+  if (!el) return;
+  const parsed = url ? ghParseUrl(url) : null;
+  if (parsed) {
+    el.innerHTML = `<span style="display:inline-flex;align-items:center;gap:4px;flex-wrap:wrap;max-width:100%;">
+      <span style="font-size:9.5px;font-family:var(--font-mono);color:var(--text-muted);background:var(--surface);border:1px solid var(--border);border-radius:5px;padding:1px 6px;white-space:nowrap;">${esc(parsed.repo)}</span>
+      <span style="font-size:9px;color:var(--text-muted);">›</span>
+      <span style="font-size:9.5px;font-family:var(--font-mono);color:color-mix(in srgb,var(--accent) 80%,var(--text-primary));background:color-mix(in srgb,var(--accent) 8%,transparent);border:1px solid color-mix(in srgb,var(--accent) 20%,transparent);border-radius:5px;padding:1px 6px;white-space:nowrap;max-width:100%;overflow:hidden;text-overflow:ellipsis;" title="${esc(parsed.branch + '/' + parsed.path)}">${esc(parsed.branch)}/${esc(parsed.path)}</span>
+    </span>`;
+  } else if (url && url.trim()) {
+    el.innerHTML = `<span style="font-size:9.5px;color:var(--red);font-family:var(--font-mono);">⚠ not a valid GitHub file URL</span>`;
+  } else {
+    el.innerHTML = '';
+  }
 }
 
 function ghParseUrl(url) {
@@ -2807,6 +3041,11 @@ function ghInitInputs() {
   if (urlInp) urlInp.value = fileUrl;
   const mobUrl = document.getElementById('mobGhFileUrl');
   if (mobUrl) mobUrl.value = fileUrl;
+  // Show parsed path pills in both panels
+  if (fileUrl) {
+    ghShowPathPill(fileUrl, 'ghPathPill');
+    ghShowPathPill(fileUrl, 'mobGhPathPill');
+  }
 
   // Apply accent & theme from Eduyomi host
   const theme  = localStorage.getItem('ej-synced-theme') || localStorage.getItem('eduyomi-theme');
@@ -2834,6 +3073,8 @@ window.addEventListener('message', function(e) {
       const mob = document.getElementById('mobGhFileUrl');
       if (inp) { inp.value = url; ghSaveSettings(); }
       if (mob) mob.value = url;
+      ghShowPathPill(url, 'ghPathPill');
+      ghShowPathPill(url, 'mobGhPathPill');
     }
     // Update theme/accent live
     if (d.type === 'ej:sync-theme') {
@@ -3000,6 +3241,15 @@ function mobShowTab(tab) {
     document.getElementById('mobBtnFiles').classList.add('active');
     mobSyncJsonView();
     mobSyncGhFieldsFromPC();
+    // Sync requests URL field + results
+    const savedReqUrl = localStorage.getItem('ej-req-sheet-url') || '';
+    const mobReqInp = document.getElementById('mobReqSheetUrl');
+    if (mobReqInp && savedReqUrl && !mobReqInp.value) mobReqInp.value = savedReqUrl;
+    // Sync results if already loaded
+    const mobScroll = document.getElementById('mobReqScroll');
+    const deskScroll = document.getElementById('reqScroll');
+    if (mobScroll && deskScroll && _reqItems.length) mobScroll.innerHTML = deskScroll.innerHTML;
+    reqUpdateBadge();
   }
 }
 
@@ -3058,15 +3308,29 @@ function mobToggleSection(bodyId, titleEl) {
   titleEl.classList.toggle('open');
 }
 
-function mobLoadFromURL() {
+async function mobLoadFromURL() {
   const url = document.getElementById('mobUrlInput').value.trim();
   if (!url) return toast('Enter a URL','e');
-  fetch(url).then(r => r.json()).then(d => {
-    data = d;
-    try { const parts = new URL(url).pathname.split('/'); const last = parts[parts.length-1]; if (last.endsWith('.json')) { loadedFileName = last.replace(/\.json$/i,''); lastExportedName=''; } } catch {}
-    render(); toast('Loaded from URL','s');
-    mobShowTab('edit');
-  }).catch(() => toast('Fetch failed','e'));
+  const proxies = [
+    u => u,
+    u => `https://corsproxy.io/?${encodeURIComponent(u)}`,
+    u => `https://api.allorigins.win/raw?url=${encodeURIComponent(u)}`,
+    u => `https://api.codetabs.com/v1/proxy?quest=${encodeURIComponent(u)}`,
+  ];
+  for (const proxy of proxies) {
+    try {
+      const r = await fetch(proxy(url), { signal: AbortSignal.timeout(8000) });
+      if (!r.ok) continue;
+      const text = await r.text();
+      const d = JSON.parse(text);
+      data = d;
+      try { const parts = new URL(url).pathname.split('/'); const last = parts[parts.length-1]; if (last.endsWith('.json')) { loadedFileName = last.replace(/\.json$/i,''); lastExportedName=''; } } catch {}
+      render(); toast('Loaded from URL','s');
+      mobShowTab('edit');
+      return;
+    } catch { continue; }
+  }
+  toast('Fetch failed — check the URL or ensure the file is publicly accessible','e');
 }
 
 function mobSyncGhFieldsFromPC() {
@@ -3083,9 +3347,12 @@ function mobSyncGhFieldsFromPC() {
 }
 
 function mobSyncGhUrl() {
-  const v = document.getElementById('mobGhFileUrl').value;
+  const v = (document.getElementById('mobGhFileUrl')?.value || '').trim();
   const pc = document.getElementById('ghFileUrl');
-  if (pc) { pc.value = v; ghSaveSettings(); }
+  if (pc && pc.value !== v) pc.value = v;
+  localStorage.setItem('ej-gh-fileurl', v);
+  ghShowPathPill(v, 'ghPathPill');
+  ghShowPathPill(v, 'mobGhPathPill');
 }
 function mobSyncGhToken() {
   // oninput fires with real chars (field unmasked while focused)
@@ -3185,8 +3452,16 @@ window.addEventListener('load', () => {
       GitHub Sync
     </div>
     <div class="mob-files-body" id="mobGhBody">
-      <!-- URL and token auto-filled from Supabase login -->
-      <input type="hidden" id="mobGhFileUrl">
+      <!-- GitHub File Path (visible + editable) -->
+      <div style="margin-bottom:10px;">
+        <div style="font-size:10px;font-weight:700;letter-spacing:.8px;text-transform:uppercase;color:var(--text-muted);margin-bottom:5px;">GitHub File Path</div>
+        <input type="url" id="mobGhFileUrl"
+          style="width:100%;height:44px;padding:0 12px;background:var(--search-bg);border:1px solid var(--border);border-radius:10px;color:var(--text-primary);font-family:var(--font-mono);font-size:11px;outline:none;transition:border-color var(--transition);margin-bottom:5px;"
+          placeholder="https://github.com/owner/repo/blob/main/data.json"
+          oninput="mobSyncGhUrl();ghShowPathPill(this.value,'mobGhPathPill')"
+          spellcheck="false" autocomplete="off" autocorrect="off" autocapitalize="off">
+        <div id="mobGhPathPill" style="min-height:16px;margin-bottom:4px;"></div>
+      </div>
       <input type="hidden" id="mobGhToken" data-masked="1">
       <div class="mob-files-row">
         <button class="btn btn-sm" onclick="ghFetch()">⬇ Pull</button>
@@ -3211,6 +3486,43 @@ window.addEventListener('load', () => {
       <div style="display:flex;gap:10px;">
         <button class="btn btn-sm" style="flex:1;justify-content:center;height:48px;font-size:14px;border-radius:12px;" onclick="mobCopyJson()">⎘ Copy</button>
         <button class="btn btn-sm btn-success" style="flex:1;justify-content:center;height:48px;font-size:14px;border-radius:12px;" onclick="mobApplyRawJson()">✓ Apply</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Requests Sheet -->
+  <div class="mob-files-section">
+    <div class="mob-files-title" id="mobReqTitle" onclick="mobToggleSection('mobReqBody',this)">
+      <span class="gh-toggle-arrow">▶</span>
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;opacity:.75"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
+      Requests
+      <span class="sidebar-tab-badge" id="mobReqBadge" style="display:none">0</span>
+    </div>
+    <div class="mob-files-body" id="mobReqBody">
+      <!-- Sheet URL + refresh -->
+      <div style="display:flex;gap:8px;margin-bottom:8px;align-items:center;">
+        <input id="mobReqSheetUrl" type="url"
+          style="flex:1;height:44px;padding:0 12px;background:var(--search-bg);border:1px solid var(--border);border-radius:10px;color:var(--text-primary);font-family:var(--font-mono);font-size:11px;outline:none;transition:border-color var(--transition);"
+          placeholder="Published CSV link or Sheet URL"
+          oninput="mobReqSyncUrl()" spellcheck="false">
+        <button id="mobReqRefreshBtn"
+          style="width:44px;height:44px;border-radius:10px;background:var(--surface);border:1px solid var(--border);color:var(--text-muted);font-size:18px;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:all var(--transition);"
+          onclick="mobReqFetch()" title="Fetch from sheet">↻</button>
+      </div>
+      <!-- Paste CSV toggle -->
+      <button class="btn btn-xs" style="font-size:12px;width:100%;justify-content:center;height:38px;border-radius:10px;margin-bottom:8px;" onclick="mobReqTogglePaste()">📋 Paste CSV manually</button>
+      <div id="mobReqPasteArea" style="display:none;margin-bottom:8px;">
+        <textarea id="mobReqPasteCSV" placeholder="Paste raw CSV here…"
+          style="width:100%;height:100px;resize:vertical;background:var(--search-bg);border:1px solid var(--border);border-radius:10px;color:var(--text-primary);font-family:var(--font-mono);font-size:11px;padding:10px;outline:none;line-height:1.5;"
+          spellcheck="false"></textarea>
+        <button class="btn btn-sm btn-accent" style="width:100%;justify-content:center;margin-top:6px;height:42px;border-radius:10px;" onclick="mobReqLoadPasted()">✓ Load pasted CSV</button>
+      </div>
+      <!-- Results list -->
+      <div id="mobReqScroll" style="max-height:420px;overflow-y:auto;border-radius:10px;">
+        <div class="req-empty" style="padding:28px 16px;">
+          <div class="req-empty-icon">📋</div>
+          <div style="font-size:12px;">Paste your Sheet URL above and tap ↻</div>
+        </div>
       </div>
     </div>
   </div>
@@ -3544,6 +3856,612 @@ function confirmAddPlaylist() {
   toast(`✓ Added ${_playlistVideos.length} videos from playlist`, 's');
   setTimeout(() => { const el = document.getElementById(`ch-card-${yi}-${si}-${ci}`); if(el) el.scrollIntoView({behavior:'smooth',block:'start'}); }, 80);
 }
+</script>
+
+
+<script>
+/* ═══════════════════════════════════════════════════════════
+   SIDEBAR TAB SWITCHER
+   ═══════════════════════════════════════════════════════════ */
+function switchSidebarTab(tab) {
+  document.getElementById('sidebarTabTree').classList.toggle('active', tab === 'tree');
+  document.getElementById('sidebarTabRequests').classList.toggle('active', tab === 'requests');
+  document.getElementById('sidebarTreePanel').style.display = tab === 'tree' ? 'flex' : 'none';
+  const rp = document.getElementById('sidebarRequestsPanel');
+  rp.classList.toggle('active', tab === 'requests');
+  if (tab === 'requests') {
+    const saved = localStorage.getItem('ej-req-sheet-url') || '';
+    const inp = document.getElementById('reqSheetUrl');
+    if (inp && !inp.value && saved) inp.value = saved;
+    // Auto-fetch if URL is saved and no items yet loaded
+    if (saved && !_reqItems.length) setTimeout(reqFetch, 200);
+  }
+}
+
+/* ═══ MOBILE REQUESTS HELPERS ═══ */
+
+function mobReqSyncUrl() {
+  const v = (document.getElementById('mobReqSheetUrl')?.value || '').trim();
+  // Sync to desktop input so reqSaveSheetUrl / reqFetch work
+  const desk = document.getElementById('reqSheetUrl');
+  if (desk) desk.value = v;
+  if (v) localStorage.setItem('ej-req-sheet-url', v);
+}
+
+async function mobReqFetch() {
+  // Sync URL from mobile field to desktop field first
+  mobReqSyncUrl();
+  const rawUrl = (document.getElementById('mobReqSheetUrl')?.value || '').trim();
+  if (!rawUrl) { toast('Paste a published CSV link first', 'e'); return; }
+
+  const info = reqParseSheetInfo(rawUrl);
+  if (!info) { toast('Could not parse Sheet URL', 'e'); return; }
+
+  const btn = document.getElementById('mobReqRefreshBtn');
+  if (btn) btn.style.animation = 'spinIcon .6s linear infinite';
+
+  const fetchUrl = info.directUrl ||
+    `https://docs.google.com/spreadsheets/d/${info.sid}/gviz/tq?tqx=out:csv&gid=${info.gid || '0'}`;
+
+  try {
+    const text = await _tryFetch(fetchUrl);
+    const rows = reqParseCSV(text);
+    if (!rows.length) throw new Error('No data rows — is the sheet published publicly as CSV?');
+    _reqItems = reqBuildItems(rows);
+    reqRender(); // renders both desktop + mobile
+    toast(`✓ ${_reqItems.length} request${_reqItems.length !== 1 ? 's' : ''} loaded`, 's');
+  } catch(e) {
+    const msg = e.message === 'HTML_REDIRECT'
+      ? 'Sheet not published — use File → Share → Publish to web → CSV'
+      : e.message;
+    toast('Failed: ' + msg, 'e');
+    const scroll = document.getElementById('mobReqScroll');
+    if (scroll) scroll.innerHTML = `<div class="req-empty" style="padding:24px 16px;"><div class="req-empty-icon">⚠️</div><div style="color:var(--red);font-size:12px;font-weight:600;margin-bottom:8px;">${msg}</div><div style="font-size:11px;color:var(--text-muted);line-height:1.8;">Publish the sheet as CSV:<br><strong>File → Share → Publish to web → CSV</strong><br>then paste that link.</div></div>`;
+  }
+
+  if (btn) btn.style.animation = '';
+}
+
+function mobReqTogglePaste() {
+  const area = document.getElementById('mobReqPasteArea');
+  if (!area) return;
+  const isOpen = area.style.display !== 'none';
+  area.style.display = isOpen ? 'none' : 'block';
+  if (!isOpen) document.getElementById('mobReqPasteCSV')?.focus();
+}
+
+function mobReqLoadPasted() {
+  const text = (document.getElementById('mobReqPasteCSV')?.value || '').trim();
+  if (!text) { toast('Paste some CSV text first', 'e'); return; }
+  try {
+    const rows = reqParseCSV(text);
+    if (!rows.length) throw new Error('No data rows found');
+    _reqItems = reqBuildItems(rows);
+    reqRender();
+    toast(`✓ ${_reqItems.length} requests loaded from paste`, 's');
+    document.getElementById('mobReqPasteArea').style.display = 'none';
+  } catch(e) {
+    toast('Parse error: ' + e.message, 'e');
+  }
+}
+
+function reqTogglePaste() {
+  const area = document.getElementById('reqPasteArea');
+  if (!area) return;
+  const isOpen = area.style.display !== 'none';
+  area.style.display = isOpen ? 'none' : 'block';
+  if (!isOpen) document.getElementById('reqPasteCSV')?.focus();
+}
+
+function reqLoadPasted() {
+  const text = (document.getElementById('reqPasteCSV')?.value || '').trim();
+  if (!text) { toast('Paste some CSV text first', 'e'); return; }
+  try {
+    const rows = reqParseCSV(text);
+    if (!rows.length) throw new Error('No data rows found');
+    _reqItems = reqBuildItems(rows);
+    reqRender();
+    toast(`✓ ${_reqItems.length} requests loaded from paste`, 's');
+    document.getElementById('reqPasteArea').style.display = 'none';
+  } catch(e) {
+    toast('Parse error: ' + e.message, 'e');
+  }
+}
+
+/* ═══════════════════════════════════════════════════════════
+   GOOGLE SHEET REQUESTS SYSTEM
+   ═══════════════════════════════════════════════════════════
+   Sheet columns expected (any order, header row 1):
+   Type | Title | Year | Subject | Chapter | Video URL | Notes | Requester | Date
+   Type values: "video", "chapter", "topic"  (case-insensitive)
+   ═══════════════════════════════════════════════════════════ */
+
+let _reqItems = [];          // parsed request cards
+let _pendingApprove = null;  // { idx, item } being reviewed
+
+function reqSaveSheetUrl() {
+  const v = (document.getElementById('reqSheetUrl')?.value || '').trim();
+  if (v) localStorage.setItem('ej-req-sheet-url', v);
+}
+
+/* Parse spreadsheet ID and gid from any Google Sheets URL */
+function reqParseSheetInfo(raw) {
+  raw = raw.trim();
+  // Handle direct published CSV links — pass through as-is
+  if (raw.includes('/pub?') && raw.includes('output=csv')) return { directUrl: raw };
+  const m = raw.match(/spreadsheets\/d\/([a-zA-Z0-9_-]+)/);
+  if (!m) return null;
+  const sid = m[1];
+  const gm = raw.match(/[#&?]gid=(\d+)/);
+  const gid = gm ? gm[1] : '0';
+  return { sid, gid };
+}
+
+/* Parse CSV text → array of objects keyed by lower-cased header */
+function reqParseCSV(text) {
+  const lines = text.split(/\r?\n/).filter(l => l.trim());
+  if (lines.length < 2) return [];
+  const headers = reqSplitCSVLine(lines[0]).map(h => h.trim().toLowerCase().replace(/\s+/g,'_'));
+  return lines.slice(1).map(line => {
+    const vals = reqSplitCSVLine(line);
+    const obj = {};
+    headers.forEach((h, i) => obj[h] = (vals[i] || '').trim());
+    return obj;
+  }).filter(r => Object.values(r).some(v => v)); // skip blank rows
+}
+
+function reqSplitCSVLine(line) {
+  const result = []; let cur = ''; let inQ = false;
+  for (let i = 0; i < line.length; i++) {
+    const c = line[i];
+    if (c === '"') { if (inQ && line[i+1] === '"') { cur += '"'; i++; } else inQ = !inQ; }
+    else if (c === ',' && !inQ) { result.push(cur); cur = ''; }
+    else cur += c;
+  }
+  result.push(cur);
+  return result;
+}
+
+/* Determine type from the row */
+function reqRowType(row) {
+  const t = (row.type || row.request_type || row.kind || '').toLowerCase();
+  if (t.includes('chapter')) return 'chapter';
+  if (t.includes('topic') || t.includes('video')) return 'video';
+  if (t.includes('subject')) return 'chapter';
+  return 'video';
+}
+
+/* Build display-ready items from parsed CSV rows */
+function reqBuildItems(rows) {
+  return rows.map((row, idx) => {
+    const type = reqRowType(row);
+    return {
+      idx,
+      raw: row,
+      type,
+      title: row.title || row.topic_title || row.chapter_title || row.video_title || row.name || '(no title)',
+      year: row.year || row.year_title || '',
+      subject: row.subject || row.subject_name || '',
+      chapter: row.chapter || row.chapter_title || '',
+      url: extractYoutubeId(row.video_url || row.url || row.youtube_url || row.link || ''),
+      notes: row.notes || row.note || row.description || '',
+      requester: row.requester || row.submitted_by || row.name || '',
+      date: row.date || row.timestamp || row.submitted_on || '',
+      status: 'pending'   // pending | approved | rejected
+    };
+  });
+}
+
+/* Try fetching CSV text from a URL, return text or throw */
+async function _tryFetch(url, headers = {}) {
+  const resp = await fetch(url, { cache: 'no-cache', headers });
+  if (!resp.ok) throw new Error(`HTTP ${resp.status}`);
+  const text = await resp.text();
+  if (text.trim().startsWith('<!')) throw new Error('HTML_REDIRECT');
+  return text;
+}
+
+/* Parse Google Sheets gviz JSON response → row objects */
+function _parseGvizJson(raw) {
+  const cleaned = raw.replace(/^[^{]*/, '').replace(/\);?\s*$/, '');
+  const obj = JSON.parse(cleaned);
+  const cols = obj.table.cols.map(c => (c.label || c.id).trim().toLowerCase().replace(/\s+/g,'_'));
+  return obj.table.rows.map(row => {
+    const rec = {};
+    cols.forEach((col, i) => {
+      const cell = row.c[i];
+      rec[col] = cell && cell.v != null ? String(cell.v).trim() : '';
+    });
+    return rec;
+  }).filter(r => Object.values(r).some(v => v));
+}
+
+/* Use Claude API as server-side proxy to fetch the sheet — no CORS issues */
+/* Parse spreadsheet ID and gid from any Google Sheets URL */
+function reqParseSheetInfo(raw) {
+  raw = raw.trim();
+  if (raw.includes('/pub?') && raw.includes('output=csv')) return { directUrl: raw };
+  const m = raw.match(/spreadsheets\/d\/([a-zA-Z0-9_-]+)/);
+  if (!m) return null;
+  const sid = m[1];
+  const gm = raw.match(/[#&?]gid=(\d+)/);
+  const gid = gm ? gm[1] : '0';
+  return { sid, gid };
+}
+
+async function reqFetch() {
+  const urlInp     = document.getElementById('reqSheetUrl');
+  const refreshBtn = document.getElementById('reqRefreshBtn');
+  const rawUrl     = (urlInp?.value || '').trim();
+  if (!rawUrl) { toast('Paste a published CSV link first', 'e'); return; }
+
+  const info = reqParseSheetInfo(rawUrl);
+  if (!info) { toast('Could not parse Sheet URL — needs /spreadsheets/d/…', 'e'); return; }
+
+  reqSaveSheetUrl();
+  if (refreshBtn) refreshBtn.classList.add('spinning');
+
+  // Only support direct published CSV links (File → Share → Publish to web → CSV)
+  const fetchUrl = info.directUrl ||
+    `https://docs.google.com/spreadsheets/d/${info.sid}/gviz/tq?tqx=out:csv&gid=${info.gid || '0'}`;
+
+  try {
+    const text = await _tryFetch(fetchUrl);
+    const rows = reqParseCSV(text);
+    if (!rows.length) throw new Error('No data rows found — is the sheet published publicly as CSV?');
+    _reqItems = reqBuildItems(rows);
+    reqRender();
+    toast(`✓ ${_reqItems.length} request${_reqItems.length !== 1 ? 's' : ''} loaded`, 's');
+  } catch(e) {
+    const msg = e.message === 'HTML_REDIRECT'
+      ? 'Sheet is not published — go to File → Share → Publish to web → CSV and paste that link here'
+      : e.message;
+    toast('Failed: ' + msg, 'e');
+    document.getElementById('reqScroll').innerHTML = `
+      <div class="req-empty">
+        <div class="req-empty-icon">⚠️</div>
+        <div style="color:var(--red);margin-bottom:12px;font-size:12px;font-weight:600">${msg}</div>
+        <div style="font-size:11px;color:var(--text-muted);line-height:1.9;text-align:left;max-width:280px;margin:0 auto">
+          In Google Sheets → <strong>File → Share → Publish to web</strong><br>
+          Choose your tab → <strong>CSV</strong> → Publish<br>
+          Paste that URL here, or use <strong>📋 Paste CSV manually</strong>.
+        </div>
+      </div>`;
+  }
+
+  if (refreshBtn) refreshBtn.classList.remove('spinning');
+}
+
+function reqRender() {
+  const scroll = document.getElementById('reqScroll');
+  const mobScroll = document.getElementById('mobReqScroll');
+  // Render into both desktop and mobile containers
+  if (!_reqItems.length) {
+    scroll.innerHTML = '<div class="req-empty"><div class="req-empty-icon">✅</div><div>No requests found in the sheet.</div></div>';
+    reqUpdateBadge();
+    return;
+  }
+
+  const pending  = _reqItems.filter(r => r.status === 'pending');
+  const approved = _reqItems.filter(r => r.status === 'approved');
+  let html = '';
+
+  if (pending.length) {
+    html += `<div class="req-group-label">Pending (${pending.length})</div>`;
+    pending.forEach(item => { html += reqCardHTML(item); });
+  }
+  if (approved.length) {
+    html += `<div class="req-group-label" style="margin-top:10px">Approved (${approved.length})</div>`;
+    approved.forEach(item => { html += reqCardHTML(item); });
+  }
+  // Rejected items are spliced out on reject — nothing to render here
+
+  scroll.innerHTML = html;
+  reqUpdateBadge();
+  // Sync to mobile scroll container
+  const _mScroll = document.getElementById('mobReqScroll');
+  if (_mScroll && scroll) _mScroll.innerHTML = scroll.innerHTML;
+}
+
+function reqCardHTML(item) {
+  const typeLbl = item.type === 'chapter' ? 'New Chapter' : (item.type === 'topic' ? 'New Topic' : 'New Video');
+
+  // Watch button — only for items that have a video ID
+  const videoId = item.url && /^[a-zA-Z0-9_-]{11}$/.test(item.url.trim()) ? item.url.trim() : null;
+  const watchBtn = videoId
+    ? `<a href="https://www.youtube.com/watch?v=${videoId}" target="_blank" rel="noopener"
+         style="display:inline-flex;align-items:center;gap:4px;padding:5px 10px;border-radius:7px;font-size:11px;font-weight:600;font-family:var(--font-body);text-decoration:none;
+                background:color-mix(in srgb,var(--red) 12%,transparent);color:var(--red);border:1px solid color-mix(in srgb,var(--red) 28%,transparent);
+                transition:background var(--transition);"
+         onmouseover="this.style.background='color-mix(in srgb,var(--red) 22%,transparent)'"
+         onmouseout="this.style.background='color-mix(in srgb,var(--red) 12%,transparent)'">
+        ▶ Watch
+       </a>`
+    : '';
+
+  const statusHtml = item.status === 'approved'
+    ? '<span class="req-status-badge ok">✓ Approved</span>'
+    : `<button class="req-btn-approve" onclick="reqOpenApprove(${item.idx})">✓ Approve</button>
+       <button class="req-btn-reject" onclick="reqReject(${item.idx})">✕ Reject</button>`;
+
+  const metaParts = [];
+  if (item.year)      metaParts.push(`<strong>Year:</strong> ${esc(item.year)}`);
+  if (item.subject)   metaParts.push(`<strong>Subject:</strong> ${esc(item.subject)}`);
+  if (item.chapter)   metaParts.push(`<strong>Chapter:</strong> ${esc(item.chapter)}`);
+  if (item.requester) metaParts.push(`<strong>By:</strong> ${esc(item.requester)}`);
+  if (item.date)      metaParts.push(`<strong>Date:</strong> ${esc(item.date)}`);
+  if (item.notes)     metaParts.push(`<em>${esc(item.notes)}</em>`);
+
+  // Show video ID chip when there is one
+  const urlChip = videoId
+    ? `<div style="display:flex;align-items:center;gap:6px;margin-bottom:7px;flex-wrap:wrap;">
+         <code class="req-url" style="margin-bottom:0;flex:1;min-width:0;">${esc(videoId)}</code>
+         ${watchBtn}
+       </div>`
+    : (item.url ? `<code class="req-url">${esc(item.url)}</code>` : '');
+
+  return `<div class="req-card type-${item.type} ${item.status !== 'pending' ? item.status : ''}">
+    <div class="req-type-pill ${item.type}">${typeLbl}</div>
+    <div class="req-title">${esc(item.title)}</div>
+    ${metaParts.length ? `<div class="req-meta">${metaParts.join(' · ')}</div>` : ''}
+    ${urlChip}
+    <div class="req-actions">${statusHtml}</div>
+  </div>`;
+}
+
+function reqUpdateBadge() {
+  const badge = document.getElementById('reqBadge');
+  const mobBadge = document.getElementById('mobReqBadge');
+  const count = _reqItems.filter(r => r.status === 'pending').length;
+  [badge, mobBadge].forEach(b => {
+    if (!b) return;
+    b.textContent = count;
+    b.style.display = count > 0 ? 'inline-flex' : 'none';
+  });
+}
+
+/* ── Reject: remove from in-memory list entirely ── */
+function reqReject(idx) {
+  const i = _reqItems.findIndex(r => r.idx === idx);
+  if (i === -1) return;
+  _reqItems.splice(i, 1);
+  reqRender();
+  toast('Request removed', 'e');
+}
+
+/* ── Open approve modal ── */
+function reqOpenApprove(idx) {
+  const item = _reqItems.find(r => r.idx === idx);
+  if (!item) return;
+  _pendingApprove = { idx, item };
+
+  document.getElementById('reqApproveModal').classList.add('open');
+
+  // Build path hint
+  const pathParts = [item.year, item.subject, item.chapter].filter(Boolean);
+  document.getElementById('reqModalPath').textContent = pathParts.length ? '📍 ' + pathParts.join(' › ') : '📍 Will be added to curriculum';
+
+  // Build fields
+  const years = (data.years || []);
+  const yearOptions = years.map((y, i) => `<option value="${i}">${esc(y.year_title || `Year ${i+1}`)}</option>`).join('');
+
+  let fieldsHTML = '';
+
+  if (item.type === 'chapter') {
+    // Need: Year, Subject, new Chapter title
+    fieldsHTML = `
+      <div class="req-modal-field"><label>Year</label>
+        <select id="rm_year" onchange="reqUpdateSubjects()">${yearOptions}</select>
+      </div>
+      <div class="req-modal-field"><label>Subject</label>
+        <select id="rm_subject"></select>
+      </div>
+      <div class="req-modal-field"><label>New Chapter Title</label>
+        <input id="rm_chapterTitle" value="${esc(item.title)}" spellcheck="false">
+      </div>`;
+  } else {
+    // Video / topic — Need: Year, Subject, Chapter, Topic Title, Video ID/URL
+    fieldsHTML = `
+      <div class="req-modal-field"><label>Year</label>
+        <select id="rm_year" onchange="reqUpdateSubjects()">${yearOptions}</select>
+      </div>
+      <div class="req-modal-field"><label>Subject</label>
+        <select id="rm_subject" onchange="reqUpdateChapters()"></select>
+      </div>
+      <div class="req-modal-field"><label>Chapter</label>
+        <select id="rm_chapter"></select>
+      </div>
+      <div class="req-modal-field"><label>Topic Title</label>
+        <input id="rm_topicTitle" value="${esc(item.title)}" spellcheck="false">
+      </div>
+      <div class="req-modal-field"><label>Video ID or URL</label>
+        <input id="rm_videoUrl" value="${esc(item.url)}" placeholder="YouTube video ID or full URL" spellcheck="false">
+      </div>`;
+  }
+
+  document.getElementById('reqModalFields').innerHTML = fieldsHTML;
+
+  // Auto-select year/subject/chapter based on request hints
+  reqAutoSelect(item);
+
+  // Commit message
+  const typeLabel = item.type === 'chapter' ? 'chapter' : 'topic';
+  document.getElementById('reqCommitMsg').value = `Add ${typeLabel}: ${item.title}`;
+
+  const status = document.getElementById('reqModalStatus');
+  if (status) { status.className = 'gh-status'; status.textContent = ''; }
+  document.getElementById('reqConfirmBtn').disabled = false;
+}
+
+function reqAutoSelect(item) {
+  const years = data.years || [];
+  // Match year
+  let yi = 0;
+  if (item.year) {
+    const found = years.findIndex(y => (y.year_title||'').toLowerCase().includes(item.year.toLowerCase()));
+    if (found >= 0) yi = found;
+  }
+  const rmYear = document.getElementById('rm_year');
+  if (rmYear) { rmYear.value = yi; reqUpdateSubjects(yi); }
+
+  // Match subject
+  if (item.subject) {
+    const subs = (years[yi]?.subjects || []);
+    const si = subs.findIndex(s => (s.subject_name?.en||'').toLowerCase().includes(item.subject.toLowerCase()));
+    const rmSub = document.getElementById('rm_subject');
+    if (rmSub && si >= 0) { rmSub.value = si; reqUpdateChapters(); }
+  }
+
+  // Match chapter
+  if (item.chapter && item.type !== 'chapter') {
+    setTimeout(() => {
+      const rmSub = document.getElementById('rm_subject');
+      const si = rmSub ? parseInt(rmSub.value) : 0;
+      const yi2 = rmYear ? parseInt(rmYear.value) : 0;
+      const chs = (years[yi2]?.subjects[si]?.chapters || []);
+      const ci = chs.findIndex(c => (c.chapter_title||'').toLowerCase().includes(item.chapter.toLowerCase()));
+      const rmCh = document.getElementById('rm_chapter');
+      if (rmCh && ci >= 0) rmCh.value = ci;
+    }, 50);
+  }
+}
+
+function reqUpdateSubjects(yi) {
+  const rmYear = document.getElementById('rm_year');
+  if (!rmYear) return;
+  yi = yi !== undefined ? yi : parseInt(rmYear.value);
+  const subs = (data.years[yi]?.subjects || []);
+  const opts = subs.map((s, i) => `<option value="${i}">${esc(s.subject_name?.en || `Subject ${i+1}`)}</option>`).join('');
+  const rmSub = document.getElementById('rm_subject');
+  if (rmSub) { rmSub.innerHTML = opts || '<option value="-1">— No subjects —</option>'; reqUpdateChapters(); }
+}
+
+function reqUpdateChapters() {
+  const rmYear = document.getElementById('rm_year');
+  const rmSub  = document.getElementById('rm_subject');
+  const rmCh   = document.getElementById('rm_chapter');
+  if (!rmYear || !rmSub || !rmCh) return;
+  const yi = parseInt(rmYear.value), si = parseInt(rmSub.value);
+  const chs = (data.years[yi]?.subjects[si]?.chapters || []);
+  const opts = chs.map((c, i) => `<option value="${i}">${esc(c.chapter_title || `Chapter ${i+1}`)}</option>`).join('');
+  rmCh.innerHTML = opts || '<option value="-1">— No chapters —</option>';
+}
+
+function closeReqModal() {
+  document.getElementById('reqApproveModal').classList.remove('open');
+  _pendingApprove = null;
+}
+document.getElementById('reqApproveModal').addEventListener('click', function(e) {
+  if (e.target === this) closeReqModal();
+});
+
+/* ── Confirm & push approval ── */
+async function reqConfirmApprove() {
+  if (!_pendingApprove) return;
+  const { item } = _pendingApprove;
+
+  const rmYear  = document.getElementById('rm_year');
+  const rmSub   = document.getElementById('rm_subject');
+  const rmCh    = document.getElementById('rm_chapter');
+  const commitMsg = (document.getElementById('reqCommitMsg')?.value || '').trim() || `Add: ${item.title}`;
+
+  const yi = rmYear ? parseInt(rmYear.value) : 0;
+  const si = rmSub  ? parseInt(rmSub.value)  : 0;
+
+  const setStatus = (msg, cls) => {
+    const el = document.getElementById('reqModalStatus');
+    if (el) { el.textContent = msg; el.className = 'gh-status show ' + cls; }
+  };
+
+  try {
+    if (item.type === 'chapter') {
+      // Add new chapter
+      const chTitle = (document.getElementById('rm_chapterTitle')?.value || '').trim() || item.title;
+      if (!data.years[yi]) throw new Error('Invalid year');
+      if (!data.years[yi].subjects[si]) throw new Error('Invalid subject');
+      data.years[yi].subjects[si].chapters = data.years[yi].subjects[si].chapters || [];
+      data.years[yi].subjects[si].chapters.push({ chapter_title: chTitle, topics: [] });
+      render(); refreshJsonPanel();
+    } else {
+      // Add new topic/video
+      const ci = rmCh ? parseInt(rmCh.value) : 0;
+      const topicTitle = (document.getElementById('rm_topicTitle')?.value || '').trim() || item.title;
+      let videoUrl = (document.getElementById('rm_videoUrl')?.value || '').trim() || item.url;
+      // Extract YouTube video ID if full URL given
+      const ytMatch = videoUrl.match(/(?:v=|youtu\.be\/|embed\/)([a-zA-Z0-9_-]{11})/);
+      if (ytMatch) videoUrl = ytMatch[1];
+      if (!data.years[yi]) throw new Error('Invalid year');
+      if (!data.years[yi].subjects[si]) throw new Error('Invalid subject');
+      if (!data.years[yi].subjects[si].chapters[ci]) throw new Error('Invalid chapter');
+      data.years[yi].subjects[si].chapters[ci].topics = data.years[yi].subjects[si].chapters[ci].topics || [];
+      data.years[yi].subjects[si].chapters[ci].topics.push({ title: topicTitle, url: videoUrl });
+      colState.years[yi] = false;
+      colState.subjects[`${yi}-${si}`] = false;
+      colState.chapters[`${yi}-${si}-${ci}`] = false;
+      treeOpen[`y${yi}`] = true;
+      treeOpen[`y${yi}s${si}`] = true;
+      treeOpen[`y${yi}s${si}c${ci}`] = true;
+      render(); refreshJsonPanel();
+    }
+
+    // Now push to GitHub
+    setStatus('⏳ Pushing to GitHub…', 'loading');
+    document.getElementById('reqConfirmBtn').disabled = true;
+    await reqGhPush(commitMsg);
+    setStatus('✓ Pushed to GitHub', 'ok');
+
+    // Mark approved
+    item.status = 'approved';
+    reqRender();
+    toast('✅ Approved & pushed to GitHub', 's');
+
+    setTimeout(closeReqModal, 1400);
+  } catch(e) {
+    setStatus('✗ ' + e.message, 'err');
+    document.getElementById('reqConfirmBtn').disabled = false;
+  }
+}
+
+async function reqGhPush(commitMsg) {
+  const { token, repo, path, branch } = ghGetFields();
+  if (!repo || !path) throw new Error('GitHub file URL not set — configure it in the GitHub Sync panel');
+  if (!token) throw new Error('GitHub token not set — configure it in the GitHub Sync panel');
+
+  // Fetch current SHA if we don't have it
+  if (!ghFileSha) {
+    const check = await fetch(
+      `https://api.github.com/repos/${repo}/contents/${path}?ref=${branch}`,
+      { headers: { Authorization: `token ${token}`, Accept: 'application/vnd.github.v3+json' } }
+    );
+    if (check.ok) { const j = await check.json(); ghFileSha = j.sha; }
+  }
+
+  const content = btoa(unescape(encodeURIComponent(JSON.stringify(data, null, 2))));
+  const body = { message: commitMsg, content, branch };
+  if (ghFileSha) body.sha = ghFileSha;
+
+  const res = await fetch(
+    `https://api.github.com/repos/${repo}/contents/${path}`,
+    {
+      method: 'PUT',
+      headers: { Authorization: `token ${token}`, Accept: 'application/vnd.github.v3+json', 'Content-Type': 'application/json' },
+      body: JSON.stringify(body)
+    }
+  );
+  if (!res.ok) { const e = await res.json(); throw new Error(e.message || res.status); }
+  const j = await res.json();
+  ghFileSha = j.content.sha;
+  lastCommittedData = JSON.parse(JSON.stringify(data));
+}
+
+/* Init: restore saved sheet URL */
+document.addEventListener('DOMContentLoaded', () => {
+  const saved = localStorage.getItem('ej-req-sheet-url') || '';
+  const inp = document.getElementById('reqSheetUrl');
+  if (inp && saved) inp.value = saved;
+  const mobInp = document.getElementById('mobReqSheetUrl');
+  if (mobInp && saved) mobInp.value = saved;
+});
 </script>
 
 <script>
